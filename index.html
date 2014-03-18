@@ -499,6 +499,7 @@
         var arrScore2 = new Array();
         var scoreO = document.getElementById("scoreO");
         var scoreX = document.getElementById("scoreX");
+        var scoreF = document.getElementById("scoreF");
 
         if ((cntLivres > 0) && (arrTabuleiro[nroCanvas] == -1))
         {
@@ -512,8 +513,9 @@
 
         arrScore1 = pontuacaoTabuleiro(arrTabuleiro, false);
         arrScore2 = pontuacaoTabuleiro(arrTabuleiro, true);
-        scoreO.innerHTML = arrScore1[0] + ' (' + arrScore2[0] + ')';
-        scoreX.innerHTML = arrScore1[1] + ' (' + arrScore2[1] + ')';
+        scoreO.innerHTML = arrScore1[0];
+        scoreX.innerHTML = arrScore1[1];
+        scoreF.innerHTML = arrScore1[1] - arrScore1[0];
       }
     </script>
   </head>
@@ -557,15 +559,13 @@
         <br>
       </td></tr>
       <tr>
-        <td align="center">
+        <td align="center" colspan="2">
           <label>X »&nbsp;</label>
           <span id="scoreX">0</span>
-          <br>
-          <br>
-        </td>
-        <td align="center">
-          <label>O »&nbsp;</label>
+          <label>&nbsp;&nbsp;&nbsp;O »&nbsp;</label>
           <span id="scoreO">0</span>
+          <label>&nbsp;&nbsp;&nbsp;SCORE »&nbsp;</label>
+          <span id="scoreF">0</span>
           <br>
           <br>
         </td>
