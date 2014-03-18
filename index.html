@@ -1,0 +1,588 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      var arrTabuleiro = new Array();
+      var cntLivres = 25;
+      var jogador = 1; // comeca com X
+      var profundidade = 3;
+
+      function XY_Indice(X, Y)
+      {
+        return X + Y * 5;
+      }
+
+      function Indice_X(indice)
+      {
+        return indice % 5;
+      }
+
+      function Indice_Y(indice)
+      {
+        return Math.floor(indice / 5);
+      }
+
+      function pintarB(nroCanvas)
+      {
+        var nomeCanvas = "canvas" + nroCanvas;
+        var objCanvas = document.getElementById(nomeCanvas);
+        var ctxCanvas = objCanvas.getContext("2d");
+
+        ctxCanvas.beginPath();
+        ctxCanvas.rect(10, 10, 30, 30);
+        ctxCanvas.fillStyle = "black";
+        ctxCanvas.fill();
+        ctxCanvas.closePath();
+      }
+
+      function pintarX(nroCanvas)
+      {
+        var nomeCanvas = "canvas" + nroCanvas;
+        var objCanvas = document.getElementById(nomeCanvas);
+        var ctxCanvas = objCanvas.getContext("2d");
+
+        ctxCanvas.beginPath();
+        ctxCanvas.moveTo(10, 10);
+        ctxCanvas.lineTo(40, 40);
+        ctxCanvas.moveTo(40, 10);
+        ctxCanvas.lineTo(10, 40);
+        ctxCanvas.stroke();
+        ctxCanvas.closePath();
+      }
+
+      function pintarO(nroCanvas)
+      {
+        var nomeCanvas = "canvas" + nroCanvas;
+        var objCanvas = document.getElementById(nomeCanvas);
+        var ctxCanvas = objCanvas.getContext("2d");
+
+        ctxCanvas.beginPath();
+        ctxCanvas.arc(25, 25, 20, 0, Math.PI * 2, true);
+        ctxCanvas.stroke();
+        ctxCanvas.closePath();
+      }
+
+      window.onload = function()
+      {
+        var arrBlock_X = new Array();
+        var arrBlock_Y = new Array();
+        var sair;
+
+        // inicializar casas
+        for (var indice = 0; indice <= 24; indice++)
+        {
+          arrTabuleiro[indice] = -1;
+        }
+
+        // bloquear casa do centro
+        arrBlock_X[0] = 2;
+        arrBlock_Y[0] = 2;
+
+        // bloquear outras 2 casas nao adjacentes
+        for (var numBlock = 1; numBlock < 3; numBlock++)
+        {
+          do
+          {
+            sair = true;
+            arrBlock_X[numBlock] = Math.round(Math.random() * 4);
+            arrBlock_Y[numBlock] = Math.round(Math.random() * 4);
+
+            for (indice = 0; indice < numBlock; indice++)
+            {
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice]) && (arrBlock_Y[numBlock] == arrBlock_Y[indice]))
+              {
+                sair = false;
+              }
+
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice]) && (arrBlock_Y[numBlock] == arrBlock_Y[indice] - 1))
+              {
+                sair = false;
+              }
+
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice]) && (arrBlock_Y[numBlock] == arrBlock_Y[indice] + 1))
+              {
+                sair = false;
+              }
+
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice] - 1) && (arrBlock_Y[numBlock] == arrBlock_Y[indice]))
+              {
+                sair = false;
+              }
+
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice] + 1) && (arrBlock_Y[numBlock] == arrBlock_Y[indice]))
+              {
+                sair = false;
+              }
+
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice] + 1) && (arrBlock_Y[numBlock] == arrBlock_Y[indice] + 1))
+              {
+                sair = false;
+              }
+
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice] - 1) && (arrBlock_Y[numBlock] == arrBlock_Y[indice] + 1))
+              {
+                sair = false;
+              }
+
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice] + 1) && (arrBlock_Y[numBlock] == arrBlock_Y[indice] - 1))
+              {
+                sair = false;
+              }
+
+              if ((arrBlock_X[numBlock] == arrBlock_X[indice] - 1) && (arrBlock_Y[numBlock] == arrBlock_Y[indice] - 1))
+              {
+                sair = false;
+              }
+            }
+          }
+          while (!sair);
+        }
+
+        // pintar casas bloqueadas
+        for (indice = 0; indice < arrBlock_X.length; indice++)
+        {
+          arrTabuleiro[XY_Indice(arrBlock_X[indice], arrBlock_Y[indice])] = -2;
+          pintarB(XY_Indice(arrBlock_X[indice], arrBlock_Y[indice]));
+          cntLivres--;
+        }
+      }
+
+      // calcula pontuacao da linha do tabuleiro (retorna array com placar)
+      function pontuacaoLinha(arrCasas)
+      {
+        var arrRetorno = [0, 0];
+        var ultimo = -1;
+        var contagem = 0;
+
+        for (var indice = 0; indice <= arrCasas.length; indice++)
+        {
+          if ((indice == arrCasas.length) || (arrCasas[indice] != ultimo))
+          {
+            if (ultimo >= 0)
+            {
+              switch (contagem)
+              {
+                case 3:
+                  arrRetorno[ultimo] += 2;
+                  break;
+
+                case 4:
+                  arrRetorno[ultimo] += 5;
+                  break;
+
+                case 5:
+                  arrRetorno[ultimo] += 10;
+                  break;
+              }
+            }
+
+            if (indice < arrCasas.length)
+            {
+              contagem = 0;
+              ultimo = arrCasas[indice];
+            }
+          }
+
+          contagem++;
+        }
+
+        return arrRetorno;
+      }
+
+      // calcula potencial de pontuacao da linha do tabuleiro (retorna array com placar)
+      function potencialLinha(arrCasas)
+      {
+        var arrRetorno = [0, 0];
+        var arrLinha = new Array();
+
+        // calcular potencial do segmento (parte da linha)
+        function analiseSegmento(jogador)
+        {
+          var pecas = 1;
+
+          for (var indice = 0; indice < arrLinha.length; indice++)
+          {
+            if (arrLinha[indice] == jogador)
+            {
+              pecas++;
+            }
+          }
+
+          return Math.pow(arrLinha.length + 1, pecas);
+        }
+
+        for (var jogador = 0; jogador <= 1; jogador++)
+        // para cada jogador...
+        {
+          for (var indice = 0; indice <= arrCasas.length; indice++)
+          // analisar cada casa da linha
+          {
+            if ((indice == arrCasas.length) || ((arrCasas[indice] != jogador) && (arrCasas[indice] != -1)))
+            // se casa nao eh branco nem jogador atual
+            {
+              if (arrLinha.length > 2)
+              // se ha mais que duas casas no segmento, calcular potencial
+              {
+                arrRetorno[jogador] += analiseSegmento(jogador);
+              }
+
+              arrLinha = new Array();
+            }
+            else
+            // se casa eh branco ou jogador atual, adicionar ao segmento
+            {
+              arrLinha[arrLinha.length] = arrCasas[indice];
+            }
+          }
+        }
+
+        arrRetorno[0] -= arrRetorno[1];
+        arrRetorno[1] -= arrRetorno[0];
+
+        return arrRetorno;
+      }
+
+      // calcula pontuacao do tabuleiro (retorna array com placar)
+      function pontuacaoTabuleiro(p_tabuleiro, potencial)
+      {
+        var arrRetorno = [0, 0];
+        var arrLinha;
+        var arrPontuacao;
+        var indice;
+        var sx;
+        var sy;
+        var x;
+        var y;
+
+        // avaliar linhas
+        for (var y = 0; y < 5; y++)
+        {
+          indice = 0;
+          arrLinha = new Array();
+
+          for (var x = 0; x < 5; x++)
+          {
+            arrLinha[indice++] = p_tabuleiro[XY_Indice(x, y)];
+          }
+
+          if (potencial)
+          {
+            arrPontuacao = potencialLinha(arrLinha);
+          }
+          else
+          {
+            arrPontuacao = pontuacaoLinha(arrLinha);
+          }
+
+          arrRetorno[0] += arrPontuacao[0];
+          arrRetorno[1] += arrPontuacao[1];
+        }
+
+        // avaliar colunas
+        for (var x = 0; x < 5; x++)
+        {
+          indice = 0;
+          arrLinha = new Array();
+
+          for (var y = 0; y < 5; y++)
+          {
+            arrLinha[indice++] = p_tabuleiro[XY_Indice(x, y)];
+          }
+
+          if (potencial)
+          {
+            arrPontuacao = potencialLinha(arrLinha);
+          }
+          else
+          {
+            arrPontuacao = pontuacaoLinha(arrLinha);
+          }
+
+          arrRetorno[0] += arrPontuacao[0];
+          arrRetorno[1] += arrPontuacao[1];
+        }
+
+        // avaliar diagonais nw-se
+        sx = 0;
+        sy = 2;
+        x = sx;
+        y = sy;
+
+        indice = 0;
+        arrLinha = new Array();
+
+        while (true)
+        {
+          arrLinha[indice++] = p_tabuleiro[XY_Indice(x, y)];
+
+          x++;
+          y++;
+
+          if ((x > 4) || (y > 4))
+          {
+            if ((sx == 2) && (sy == 0))
+            {
+              break;
+            }
+
+            if (sy == 0)
+            {
+              sx++;
+            }
+            else if (sx == 0)
+            {
+              sy--;
+            }
+
+            x = sx;
+            y = sy;
+
+            if (potencial)
+            {
+              arrPontuacao = potencialLinha(arrLinha);
+            }
+            else
+            {
+              arrPontuacao = pontuacaoLinha(arrLinha);
+            }
+
+            arrRetorno[0] += arrPontuacao[0];
+            arrRetorno[1] += arrPontuacao[1];
+            indice = 0;
+            arrLinha = new Array();
+          }
+        }
+
+        if (potencial)
+        {
+          arrPontuacao = potencialLinha(arrLinha);
+        }
+        else
+        {
+          arrPontuacao = pontuacaoLinha(arrLinha);
+        }
+
+        arrRetorno[0] += arrPontuacao[0];
+        arrRetorno[1] += arrPontuacao[1];
+
+        // avaliar diagonais ne-sw
+        sx = 2;
+        sy = 0;
+        x = sx;
+        y = sy;
+
+        indice = 0;
+        arrLinha = new Array();
+
+        while (true)
+        {
+          arrLinha[indice++] = p_tabuleiro[XY_Indice(x, y)];
+
+          x--;
+          y++;
+
+          if ((x < 0) || (y > 4))
+          {
+            if ((sx == 4) && (sy == 2))
+            {
+              break;
+            }
+
+            if (sx == 4)
+            {
+              sy++;
+            }
+            else if (sy == 0)
+            {
+              sx++;
+            }
+
+            x = sx;
+            y = sy;
+
+            if (potencial)
+            {
+              arrPontuacao = potencialLinha(arrLinha);
+            }
+            else
+            {
+              arrPontuacao = pontuacaoLinha(arrLinha);
+            }
+
+            arrRetorno[0] += arrPontuacao[0];
+            arrRetorno[1] += arrPontuacao[1];
+            indice = 0;
+            arrLinha = new Array();
+          }
+        }
+
+        if (potencial)
+        {
+          arrPontuacao = potencialLinha(arrLinha);
+        }
+        else
+        {
+          arrPontuacao = pontuacaoLinha(arrLinha);
+        }
+
+        arrRetorno[0] += arrPontuacao[0];
+        arrRetorno[1] += arrPontuacao[1];
+
+        return arrRetorno;
+      }
+
+      // calcula melhor jogada ([0] = pos X, [1] = pos Y, [2] = score)
+      function Jogar()
+      {
+        function JogarRec(p_tabuleiro, p_livres, p_vez, p_nivel)
+        {
+          var arrRetorno = [-1, -1, -999999999];
+          var arrClone;
+          var arrScore;
+          var score;
+          var delta;
+
+          for (var y = 0; y < 5; y++)
+          {
+            for (var x = 0; x < 5; x++)
+            {
+              if (p_tabuleiro[XY_Indice(x, y)] == -1)
+              {
+                arrClone = p_tabuleiro.slice(0); // copia tabuleiro
+                arrClone[XY_Indice(x, y)] = p_vez;
+
+                if ((p_livres == 1) || (p_nivel == profundidade))
+                {
+                  arrScore = pontuacaoTabuleiro(p_tabuleiro, true);
+                  score = arrScore[p_vez] - arrScore[1 - p_vez];
+                  //console.log("p_vez=" + p_vez + ";p_nivel=" + p_nivel + ";x=" + x + ";y=" + y + ";score=" + score);
+                }
+                else
+                {
+                  arrScore = JogarRec(arrClone, p_livres - 1, 1 - p_vez, p_nivel + 1);
+                  score = arrScore[2];
+                }
+
+                if ((score > arrRetorno[2]) || ((score == arrRetorno[2]) && (Math.random() >= 0.5)))
+                {
+                  arrRetorno[0] = x;
+                  arrRetorno[1] = y;
+                  arrRetorno[2] = score;
+                }
+              }
+            }
+          }
+
+          return arrRetorno;
+        }
+
+        return JogarRec(arrTabuleiro, cntLivres, 0, 1);
+      }
+
+      function fazerJogadaX(nroCanvas)
+      {
+        pintarX(nroCanvas);
+        arrTabuleiro[nroCanvas] = 1;
+        cntLivres--;
+      }
+
+      function fazerJogadaO()
+      {
+        var arrJogada = Jogar();
+        pintarO(XY_Indice(arrJogada[0], arrJogada[1]));
+        arrTabuleiro[XY_Indice(arrJogada[0], arrJogada[1])] = 0;
+        cntLivres--;
+      }
+
+      function canvasClicked(nroCanvas)
+      {
+        var arrScore1 = new Array();
+        var arrScore2 = new Array();
+        var scoreO = document.getElementById("scoreO");
+        var scoreX = document.getElementById("scoreX");
+
+        if ((cntLivres > 0) && (arrTabuleiro[nroCanvas] == -1))
+        {
+          fazerJogadaX(nroCanvas);
+
+          if (cntLivres > 0)
+          {
+            fazerJogadaO();
+          }
+        }
+
+        arrScore1 = pontuacaoTabuleiro(arrTabuleiro, false);
+        arrScore2 = pontuacaoTabuleiro(arrTabuleiro, true);
+        scoreO.innerHTML = arrScore1[0] + ' (' + arrScore2[0] + ')';
+        scoreX.innerHTML = arrScore1[1] + ' (' + arrScore2[1] + ')';
+      }
+    </script>
+  </head>
+  <body>
+    <table border="0">
+      <tr><td colspan="2" align="center">
+        <h2>Jogo da Velha 5x5 v0.2</h2>
+      </td></tr>
+      <tr><td colspan="2">
+        <div id="box">
+          <canvas id="canvas0" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(00)"></canvas>
+          <canvas id="canvas1" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(01)"></canvas>
+          <canvas id="canvas2" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(02)"></canvas>
+          <canvas id="canvas3" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(03)"></canvas>
+          <canvas id="canvas4" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(04)"></canvas>
+          <br>
+          <canvas id="canvas5" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(05)"></canvas>
+          <canvas id="canvas6" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(06)"></canvas>
+          <canvas id="canvas7" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(07)"></canvas>
+          <canvas id="canvas8" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(08)"></canvas>
+          <canvas id="canvas9" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(09)"></canvas>
+          <br>
+          <canvas id="canvas10" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(10)"></canvas>
+          <canvas id="canvas11" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(11)"></canvas>
+          <canvas id="canvas12" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(12)"></canvas>
+          <canvas id="canvas13" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(13)"></canvas>
+          <canvas id="canvas14" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(14)"></canvas>
+          <br>
+          <canvas id="canvas15" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(15)"></canvas>
+          <canvas id="canvas16" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(16)"></canvas>
+          <canvas id="canvas17" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(17)"></canvas>
+          <canvas id="canvas18" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(18)"></canvas>
+          <canvas id="canvas19" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(19)"></canvas>
+          <br>
+          <canvas id="canvas20" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(20)"></canvas>
+          <canvas id="canvas21" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(21)"></canvas>
+          <canvas id="canvas22" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(22)"></canvas>
+          <canvas id="canvas23" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(23)"></canvas>
+          <canvas id="canvas24" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(24)"></canvas>
+        </div>
+        <br>
+      </td></tr>
+      <tr>
+        <td align="center">
+          <label>X »&nbsp;</label>
+          <span id="scoreX">0</span>
+          <br>
+          <br>
+        </td>
+        <td align="center">
+          <label>O »&nbsp;</label>
+          <span id="scoreO">0</span>
+          <br>
+          <br>
+        </td>
+      </tr>
+      <tr><td colspan="2">
+        <table border="0">
+          <tr>
+            <td>***</td><td>= +2</td>
+          </tr>
+          <tr>
+            <td>****</td><td>= +5</td>
+          </tr>
+          <tr>
+            <td>*****</td><td>= +10</td>
+          </tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>
