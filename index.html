@@ -573,12 +573,8 @@
         {
           var linha_excluir = 3;
           var menor_score = 999;
-          
-          if (topScore < (arrScore1[1] - arrScore1[0]))
-          {
-            topScore = arrScore1[1] - arrScore1[0];
-          }
 
+          // procurar linha com menor score          
           for (var indice = 0; indice < 4; indice++)
           {
             if (!isNaN(Number(arrListScore[indice].innerHTML)))
@@ -591,6 +587,7 @@
             }
           }
           
+          // deletar linha com menor score
           for (var indice = linha_excluir; indice < 4; indice++)
           {
             if (!isNaN(Number(arrListScore[indice + 1].innerHTML)))
@@ -603,6 +600,7 @@
             }
           }
           
+          // escrever score atual na última linha
           var date = new Date();
           date.setTime(date.getTime());
           var minutos = "" + (date.getMinutes() + 100);
@@ -698,9 +696,9 @@
                 <strong><span id="score3">&nbsp;</span></strong>
               </td>
             </tr>
-            <tr style="border:1px solid black">
+            <tr>
               <td align="left">
-                <span id="data4">&nbsp;</span>
+                <strong><span id="data4">&nbsp;</span></strong>
               </td>
               <td align="right">
                 <strong><span id="score4">&nbsp;</span></strong>
