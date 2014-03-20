@@ -7,6 +7,7 @@
       var profundidade = 3;
       var arrListData = new Array();
       var arrListScore = new Array();
+      var topScore = -999;
 
       function XY_Indice(X, Y)
       {
@@ -161,6 +162,11 @@
             score_linha = readCookie("score" + indice);
             arrListData[indice].innerHTML = data_linha;
             arrListScore[indice].innerHTML = score_linha;
+            
+            if (Number(score_linha) > topScore)
+            {
+              topScore = Number(score_linha);
+            }
           }
         }
       }
@@ -567,31 +573,26 @@
 
         if (cntLivres == 0)
         {
-          var top_score = readCookie("record");
-          
-          if (top_score == null)
+          if (topScore < (arrScore1[1] - arrScore1[0]))
           {
-            top_score = scoreF.innerHTML;
+            topScore = arrScore1[1] - arrScore1[0];
           }
-          else if (Number(top_score) < Number(scoreF.innerHTML))
-          {
-            top_score = scoreF.innerHTML;
-          }
-          
-          writeCookie("record", top_score);
-          
+
           for (var indice = 0; indice < 4; indice++)
           {
-            if ((indice > 0) || isNaN(Number(arrListScore[indice].innerHTML)) || (Number(arrListScore[indice].innerHTML) <= Number(top_score)))
+            if (!isNaN(Number(arrListScore[indice + 1].innerHTML)))
             {
-              arrListData[indice].innerHTML = arrListData[indice + 1].innerHTML;
-              arrListScore[indice].innerHTML = arrListScore[indice + 1].innerHTML;
-
-              writeCookie("data" + indice, arrListData[indice].innerHTML);
-              writeCookie("score" + indice, arrListScore[indice].innerHTML);
+              if ((indice > 0) || isNaN(Number(arrListScore[indice].innerHTML)) || (Number(arrListScore[indice].innerHTML) <= Number(arrListScore[indice + 1].innerHTML)))
+              {
+                arrListData[indice].innerHTML = arrListData[indice + 1].innerHTML;
+                arrListScore[indice].innerHTML = arrListScore[indice + 1].innerHTML;
+  
+                writeCookie("data" + indice, arrListData[indice].innerHTML);
+                writeCookie("score" + indice, arrListScore[indice].innerHTML);
+              }
             }
           }
-
+          
           var minutos = "" + (date.getMinutes() + 100);
           minutos = minutos.substring(1, 3);
 
