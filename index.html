@@ -5,6 +5,8 @@
       var cntLivres = 25;
       var jogador = 1; // comeca com X
       var profundidade = 3;
+      var arrListData = new Array();
+      var arrListScore = new Array();
 
       function XY_Indice(X, Y)
       {
@@ -143,6 +145,23 @@
           arrTabuleiro[XY_Indice(arrBlock_X[indice], arrBlock_Y[indice])] = -2;
           pintarB(XY_Indice(arrBlock_X[indice], arrBlock_Y[indice]));
           cntLivres--;
+        }
+
+        // preencher lista de scores anteriores
+        for (var indice = 0; indice < 5; indice++)
+        {
+          arrListData[indice] = document.getElementById("data" + indice);
+          arrListScore[indice] = document.getElementById("score" + indice);
+
+          var data_linha = readCookie("data" + indice);
+          var score_linha = 0;
+
+          if (data_linha != null)
+          {
+            score_linha = readCookie("score" + indice);
+            arrListData[indice].innerHTML = data_linha;
+            arrListScore[indice].innerHTML = score_linha;
+          }
         }
       }
 
@@ -493,13 +512,44 @@
         cntLivres--;
       }
 
+      function writeCookie(name, value)
+      {
+        var d = new Date();
+        d.setTime(d.getTime() + (365*24*60*60*1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = name+"="+value+";" + expires + ";path=/";
+      }
+
+      function readCookie(name)
+      {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+
+        for (var i = 0; i < ca.length; i++)
+        {
+          var c = ca[i];
+
+          while (c.charAt(0) == ' ')
+          {
+            c = c.substring(1, c.length);
+          }
+
+          if (c.indexOf(nameEQ) == 0)
+          {
+            return c.substring(nameEQ.length, c.length);
+          }
+        }
+
+        return null;
+      }
+
       function canvasClicked(nroCanvas)
       {
         var arrScore1 = new Array();
         var arrScore2 = new Array();
-        var scoreO = document.getElementById("scoreO");
-        var scoreX = document.getElementById("scoreX");
         var scoreF = document.getElementById("scoreF");
+        var date = new Date();
+        date.setTime(date.getTime());
 
         if ((cntLivres > 0) && (arrTabuleiro[nroCanvas] == -1))
         {
@@ -513,76 +563,135 @@
 
         arrScore1 = pontuacaoTabuleiro(arrTabuleiro, false);
         arrScore2 = pontuacaoTabuleiro(arrTabuleiro, true);
-        scoreO.innerHTML = arrScore1[0];
-        scoreX.innerHTML = arrScore1[1];
         scoreF.innerHTML = arrScore1[1] - arrScore1[0];
+
+        if (cntLivres == 0)
+        {
+          for (var indice = 0; indice < 4; indice++)
+          {
+            arrListData[indice].innerHTML = arrListData[indice + 1].innerHTML;
+            arrListScore[indice].innerHTML = arrListScore[indice + 1].innerHTML;
+
+            writeCookie("data" + indice, arrListData[indice].innerHTML);
+            writeCookie("score" + indice, arrListScore[indice].innerHTML);
+          }
+
+          var minutos = "" + (date.getMinutes() + 100);
+          minutos = minutos.substring(1, 3);
+
+          arrListData[4].innerHTML = date.getDate() + "/" + date.getMonth() + " " + date.getHours() + ":" + minutos;
+          arrListScore[4].innerHTML = scoreF.innerHTML;
+
+          writeCookie("data4", arrListData[4].innerHTML);
+          writeCookie("score4", arrListScore[4].innerHTML);
+        }
       }
     </script>
   </head>
   <body>
-    <table border="0">
-      <tr><td colspan="2" align="center">
-        <h2>Jogo da Velha 5x5</h2>
-      </td></tr>
-      <tr><td colspan="2">
-        <div id="box">
-          <canvas id="canvas0" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(00)"></canvas>
-          <canvas id="canvas1" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(01)"></canvas>
-          <canvas id="canvas2" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(02)"></canvas>
-          <canvas id="canvas3" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(03)"></canvas>
-          <canvas id="canvas4" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(04)"></canvas>
-          <br>
-          <canvas id="canvas5" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(05)"></canvas>
-          <canvas id="canvas6" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(06)"></canvas>
-          <canvas id="canvas7" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(07)"></canvas>
-          <canvas id="canvas8" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(08)"></canvas>
-          <canvas id="canvas9" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(09)"></canvas>
-          <br>
-          <canvas id="canvas10" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(10)"></canvas>
-          <canvas id="canvas11" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(11)"></canvas>
-          <canvas id="canvas12" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(12)"></canvas>
-          <canvas id="canvas13" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(13)"></canvas>
-          <canvas id="canvas14" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(14)"></canvas>
-          <br>
-          <canvas id="canvas15" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(15)"></canvas>
-          <canvas id="canvas16" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(16)"></canvas>
-          <canvas id="canvas17" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(17)"></canvas>
-          <canvas id="canvas18" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(18)"></canvas>
-          <canvas id="canvas19" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(19)"></canvas>
-          <br>
-          <canvas id="canvas20" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(20)"></canvas>
-          <canvas id="canvas21" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(21)"></canvas>
-          <canvas id="canvas22" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(22)"></canvas>
-          <canvas id="canvas23" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(23)"></canvas>
-          <canvas id="canvas24" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(24)"></canvas>
-        </div>
-        <br>
-      </td></tr>
+    <table border="0" style="font-family:verdana;">
       <tr>
-        <td align="center" colspan="2">
-          <label>X »&nbsp;</label>
-          <span id="scoreX">0</span>
-          <label>&nbsp;-&nbsp;&nbsp;O »&nbsp;</label>
-          <span id="scoreO">0</span>
-          <label>&nbsp;-&nbsp;&nbsp;SCORE »&nbsp;</label>
-          <strong><span id="scoreF">0</span></strong>
-          <br>
+        <td align="center">
+          <h2>Jogo da Velha 5x5</h2>
+        </td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>
+          <div id="box">
+            <canvas id="canvas0" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(00)"></canvas>
+            <canvas id="canvas1" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(01)"></canvas>
+            <canvas id="canvas2" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(02)"></canvas>
+            <canvas id="canvas3" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(03)"></canvas>
+            <canvas id="canvas4" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(04)"></canvas>
+            <br>
+            <canvas id="canvas5" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(05)"></canvas>
+            <canvas id="canvas6" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(06)"></canvas>
+            <canvas id="canvas7" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(07)"></canvas>
+            <canvas id="canvas8" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(08)"></canvas>
+            <canvas id="canvas9" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(09)"></canvas>
+            <br>
+            <canvas id="canvas10" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(10)"></canvas>
+            <canvas id="canvas11" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(11)"></canvas>
+            <canvas id="canvas12" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(12)"></canvas>
+            <canvas id="canvas13" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(13)"></canvas>
+            <canvas id="canvas14" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(14)"></canvas>
+            <br>
+            <canvas id="canvas15" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(15)"></canvas>
+            <canvas id="canvas16" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(16)"></canvas>
+            <canvas id="canvas17" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(17)"></canvas>
+            <canvas id="canvas18" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(18)"></canvas>
+            <canvas id="canvas19" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(19)"></canvas>
+            <br>
+            <canvas id="canvas20" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(20)"></canvas>
+            <canvas id="canvas21" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(21)"></canvas>
+            <canvas id="canvas22" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(22)"></canvas>
+            <canvas id="canvas23" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(23)"></canvas>
+            <canvas id="canvas24" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(24)"></canvas>
+          </div>
           <br>
         </td>
+        <td align="center" width="150px">
+          <label>SCORE:&nbsp;</label>
+          <strong>[<span id="scoreF">0</span>]</strong>
+          <br>
+          <br>
+          <table style="border:1px solid black" width="130px">
+            <tr>
+              <td align="left">
+                <span id="data0">&nbsp;</span>
+              </td>
+              <td align="right">
+                <strong><span id="score0">&nbsp;</span></strong>
+              </td>
+            </tr>
+            <tr>
+              <td align="left">
+                <span id="data1">&nbsp;</span>
+              </td>
+              <td align="right">
+                <strong><span id="score1">&nbsp;</span></strong>
+              </td>
+            </tr>
+            <tr>
+              <td align="left">
+                <span id="data2">&nbsp;</span>
+              </td>
+              <td align="right">
+                <strong><span id="score2">&nbsp;</span></strong>
+              </td>
+            </tr>
+            <tr>
+              <td align="left">
+                <span id="data3">&nbsp;</span>
+              </td>
+              <td align="right">
+                <strong><span id="score3">&nbsp;</span></strong>
+              </td>
+            </tr>
+            <tr>
+              <td align="left">
+                <span id="data4">&nbsp;</span>
+              </td>
+              <td align="right">
+                <strong><span id="score4">&nbsp;</span></strong>
+              </td>
+            </tr>
+          </table>
+          <br>
+          <table style="border:1px solid black" width="130px">
+            <tr>
+              <td>&times;&times;&times;</td><td>= +2</td>
+            </tr>
+            <tr>
+              <td>&times;&times;&times;&times;</td><td>= +5</td>
+            </tr>
+            <tr>
+              <td>&times;&times;&times;&times;&times;</td><td>= +10</td>
+            </tr>
+          </table>
+        </td>
       </tr>
-      <tr><td colspan="2">
-        <table border="0">
-          <tr>
-            <td>***</td><td>= +2</td>
-          </tr>
-          <tr>
-            <td>****</td><td>= +5</td>
-          </tr>
-          <tr>
-            <td>*****</td><td>= +10</td>
-          </tr>
-        </table>
-      </td></tr>
     </table>
   </body>
 </html>
