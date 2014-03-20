@@ -574,14 +574,14 @@
         if (cntLivres == 0)
         {
           var linha_excluir = 0;
-          var gravar;
+          var gravar = false;
 
           // verificar se score atual é maior que primeira linha
           if (isNaN(Number(arrListScore[0].innerHTML)))
           {
             gravar = true;
           }
-          else if (Number(arrListScore[0].innerHTML) < score)
+          else if (Number(arrListScore[0].innerHTML) <= score)
           {
             gravar = true;
           }
@@ -593,17 +593,10 @@
           // escrever score atual na primeira linha
           if (gravar)
           {
-            for (var indice = 0; indice < 4; indice++)
+            for (var indice = 4; indice > 0; indice--)
             {
-              if (!isNaN(Number(arrListScore[indice].innerHTML)))
-              {
-                arrListScore[indice + 1].innerHTML = arrListScore[indice].innerHTML;
-                arrListData[indice + 1].innerHTML = arrListData[indice].innerHTML;
-              }
-              else
-              {
-                break;
-              }
+              arrListScore[indice].innerHTML = arrListScore[indice - 1].innerHTML;
+              arrListData[indice].innerHTML = arrListData[indice - 1].innerHTML;
             }
 
             var date = new Date();
