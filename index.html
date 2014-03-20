@@ -563,7 +563,7 @@
 
         arrScore1 = pontuacaoTabuleiro(arrTabuleiro, false);
         arrScore2 = pontuacaoTabuleiro(arrTabuleiro, true);
-        scoreF.innerHTML = arrScore1[1] - arrScore1[0];
+        scoreF.innerHTML = arrScore1[1] + " - " arrScore1[0] + " = [" + (arrScore1[1] - arrScore1[0]) + "]";
 
         if (cntLivres == 0)
         {
@@ -633,8 +633,7 @@
         </td>
         <td align="center" width="180px">
           <label>SCORE:&nbsp;</label>
-          <strong>[<span id="scoreF">0</span>]</strong>
-          <br>
+          <strong><span id="scoreF">0 - 0 = [0]</span></strong>
           <br>
           <table style="border:1px solid black" width="150px">
             <tr>
