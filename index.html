@@ -582,7 +582,7 @@
           
           for (var indice = 0; indice < 4; indice++)
           {
-            if ((indice > 0) || (Number(arrListScore[indice].innerHTML) <= Number(top_score)))
+            if ((indice > 0) || isNaN(Number(arrListScore[indice].innerHTML)) || (Number(arrListScore[indice].innerHTML) <= Number(top_score)))
             {
               arrListData[indice].innerHTML = arrListData[indice + 1].innerHTML;
               arrListScore[indice].innerHTML = arrListScore[indice + 1].innerHTML;
