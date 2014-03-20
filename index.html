@@ -574,33 +574,45 @@
         if (cntLivres == 0)
         {
           var linha_excluir = 0;
-          var menor_score = score;
+          var gravar;
 
-          // procurar para receber score atual
-          for (var indice = 0; indice < 5; indice++)
+          // verificar se score atual é maior que primeira linha
+          if (isNaN(Number(arrListScore[0].innerHTML)))
           {
-            if (isNaN(Number(arrListScore[indice].innerHTML)))
-            {
-              linha_excluir = indice;
-              break;
-            }
-            else if (Number(arrListScore[indice].innerHTML) <= menor_score)
-            {
-              linha_excluir = indice;
-              menor_score = Number(arrListScore[indice].innerHTML);
-            }
+            gravar = true;
+          }
+          else if (Number(arrListScore[0].innerHTML) < score)
+          {
+            gravar = true;
+          }
+          else
+          {
+            gravar = false;
           }
 
-          // escrever score atual na linha encontrada
-          if (score >= menor_score)
+          // escrever score atual na primeira linha
+          if (gravar)
           {
+            for (var indice = 0; indice < 4; indice++)
+            {
+              if (isNaN(Number(arrListScore[indice].innerHTML)))
+              {
+                arrListScore[indice + 1].innerHTML = arrListScore[indice].innerHTML;
+                arrListData[indice + 1].innerHTML = arrListData[indice].innerHTML;
+              }
+              else
+              {
+                break;
+              }
+            }
+
             var date = new Date();
             date.setTime(date.getTime());
             var minutos = "" + (date.getMinutes() + 100);
             minutos = minutos.substring(1, 3);
-  
-            arrListData[linha_excluir].innerHTML = date.getDate() + "/" + date.getMonth() + " " + date.getHours() + ":" + minutos;
-            arrListScore[linha_excluir].innerHTML = scoreF.innerHTML;
+
+            arrListData[0].innerHTML = date.getDate() + "/" + date.getMonth() + " " + date.getHours() + ":" + minutos;
+            arrListScore[0].innerHTML = scoreF.innerHTML;
           }
 
           // gravar scores no cookie
