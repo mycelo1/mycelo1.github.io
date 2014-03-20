@@ -580,14 +580,14 @@
           // procurar para receber score atual
           for (var indice = 0; indice < 5; indice++)
           {
-            if (!isNaN(Number(arrListScore[indice].innerHTML)))
+            if (isNaN(Number(arrListScore[indice].innerHTML)))
             {
-              if ((linha_excluir == 0) && (indice > linha_excluir))
-              {
-                linha_excluir = indice;
-              }
-
-              if (Number(arrListScore[indice].innerHTML) < menor_score)
+              linha_excluir = indice;
+              break;
+            }
+            else
+            {
+              if (Number(arrListScore[indice].innerHTML) <= menor_score)
               {
                 linha_excluir = indice;
                 menor_score = Number(arrListScore[indice].innerHTML);
