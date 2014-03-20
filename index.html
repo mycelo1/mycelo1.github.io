@@ -567,13 +567,29 @@
 
         if (cntLivres == 0)
         {
+          var top_score = readCookie("record");
+          
+          if (top_score == null)
+          {
+            top_score = scoreF.innerHTML;
+          }
+          else if (top_score < scoreF.innerHTML)
+          {
+            top_score = scoreF.innerHTML;
+          }
+          
+          writeCookie("record", top_score);
+          
           for (var indice = 0; indice < 4; indice++)
           {
-            arrListData[indice].innerHTML = arrListData[indice + 1].innerHTML;
-            arrListScore[indice].innerHTML = arrListScore[indice + 1].innerHTML;
+            if (indice > 0 || arrListScore[indice].innerHTML <= top_score)
+            {
+              arrListData[indice].innerHTML = arrListData[indice + 1].innerHTML;
+              arrListScore[indice].innerHTML = arrListScore[indice + 1].innerHTML;
 
-            writeCookie("data" + indice, arrListData[indice].innerHTML);
-            writeCookie("score" + indice, arrListScore[indice].innerHTML);
+              writeCookie("data" + indice, arrListData[indice].innerHTML);
+              writeCookie("score" + indice, arrListScore[indice].innerHTML);
+            }
           }
 
           var minutos = "" + (date.getMinutes() + 100);
