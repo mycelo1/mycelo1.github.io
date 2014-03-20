@@ -595,7 +595,7 @@
           {
             for (var indice = 0; indice < 4; indice++)
             {
-              if (isNaN(Number(arrListScore[indice].innerHTML)))
+              if (!isNaN(Number(arrListScore[indice].innerHTML)))
               {
                 arrListScore[indice + 1].innerHTML = arrListScore[indice].innerHTML;
                 arrListData[indice + 1].innerHTML = arrListData[indice].innerHTML;
