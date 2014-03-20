@@ -575,7 +575,6 @@
         {
           var linha_excluir = 0;
           var menor_score = score;
-          var maior_score = score;
 
           // procurar para receber score atual
           for (var indice = 0; indice < 5; indice++)
@@ -585,18 +584,10 @@
               linha_excluir = indice;
               break;
             }
-            else
+            else if (Number(arrListScore[indice].innerHTML) <= menor_score)
             {
-              if (Number(arrListScore[indice].innerHTML) <= menor_score)
-              {
-                linha_excluir = indice;
-                menor_score = Number(arrListScore[indice].innerHTML);
-              }
-
-              if (Number(arrListScore[indice].innerHTML) > maior_score)
-              {
-                maior_score = Number(arrListScore[indice].innerHTML);
-              }
+              linha_excluir = indice;
+              menor_score = Number(arrListScore[indice].innerHTML);
             }
           }
 
