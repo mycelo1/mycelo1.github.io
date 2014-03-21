@@ -569,7 +569,7 @@
         arrScore1 = pontuacaoTabuleiro(arrTabuleiro, false);
         arrScore2 = pontuacaoTabuleiro(arrTabuleiro, true);
         score = arrScore1[1] - arrScore1[0];
-        scoreF.innerHTML = "(&Chi;:" + arrScore1[1] + ")&nbsp;&minus;&nbsp;(&Omicron;:" + arrScore1[0] + ")&nbsp;=&nbsp;" + score;
+        scoreF.innerHTML = "(&#x2716;:" + arrScore1[1] + ")&nbsp;&minus;&nbsp;(&#x3007;:" + arrScore1[0] + ")&nbsp;=&nbsp;" + score;
 
         if (cntLivres == 0)
         {
@@ -665,7 +665,7 @@
           <label>SCORE:&nbsp;</label>
           <br>
           <strong><span id="scoreF">
-            (&#x2716;:0)&nbsp;&minus;&nbsp;(&#x1f315;:0)&nbsp;=&nbsp;0
+            (&#x2716;:0)&nbsp;&minus;&nbsp;(&#x3007;:0)&nbsp;=&nbsp;0
           </span></strong>
           <br>
           <br>
@@ -714,13 +714,13 @@
           <br>
           <table style="border:1px solid black" width="150px">
             <tr>
-              <td>&times;&times;&times;</td><td>= +2</td>
+              <td>&#x2716;&#x2716;&#x2716;</td><td>= +2</td>
             </tr>
             <tr>
-              <td>&times;&times;&times;&times;</td><td>= +5</td>
+              <td>&#x2716;&#x2716;&#x2716;&#x2716;</td><td>= +5</td>
             </tr>
             <tr>
-              <td>&times;&times;&times;&times;&times;</td><td>= +10</td>
+              <td>&#x2716;&#x2716;&#x2716;&#x2716;&#x2716;</td><td>= +10</td>
             </tr>
           </table>
         </td>
