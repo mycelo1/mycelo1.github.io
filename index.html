@@ -574,26 +574,27 @@
         if (cntLivres == 0)
         {
           var linha_excluir = 0;
-          var gravar = false;
+          var gravar = -1;
 
-          // verificar se score atual é maior que primeira linha
-          if (isNaN(Number(arrListScore[0].innerHTML)))
+          // verificar se score atual é maior que alguma linha
+          for (var indice = 0; indice < 5; indice++)
           {
-            gravar = true;
-          }
-          else if (Number(arrListScore[0].innerHTML) < score)
-          {
-            gravar = true;
-          }
-          else
-          {
-            gravar = false;
+            if (isNaN(Number(arrListScore[indice].innerHTML)))
+            {
+              gravar = indice;
+              break;
+            }
+            else if (Number(arrListScore[indice].innerHTML) < score)
+            {
+              gravar = indice;
+              break;
+            }
           }
 
-          // escrever score atual na primeira linha
-          if (gravar)
+          // escrever score atual
+          if (gravar >= 0)
           {
-            for (var indice = 4; indice > 0; indice--)
+            for (var indice = 4; indice > gravar; indice--)
             {
               arrListScore[indice].innerHTML = arrListScore[indice - 1].innerHTML;
               arrListData[indice].innerHTML = arrListData[indice - 1].innerHTML;
@@ -604,8 +605,8 @@
             var minutos = "" + (date.getMinutes() + 100);
             minutos = minutos.substring(1, 3);
 
-            arrListData[0].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + " " + date.getHours() + ":" + minutos;
-            arrListScore[0].innerHTML = score;
+            arrListData[gravar].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + "&nbsp;" + date.getHours() + ":" + minutos;
+            arrListScore[gravar].innerHTML = score;
           }
 
           // gravar scores no cookie
