@@ -604,7 +604,7 @@
             var minutos = "" + (date.getMinutes() + 100);
             minutos = minutos.substring(1, 3);
 
-            arrListData[0].innerHTML = date.getDate() + "/" + date.getMonth() + " " + date.getHours() + ":" + minutos;
+            arrListData[0].innerHTML = date.getDate() + "/" + (date.getMonth() + 1) + " " + date.getHours() + ":" + minutos;
             arrListScore[0].innerHTML = score;
           }
 
