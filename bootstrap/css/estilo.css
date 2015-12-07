@@ -26,6 +26,11 @@ body
     padding-top: 0;
 }
 
+.navbar-toggle.navbar-left {
+  float: left;
+  margin-left: 10px;
+}
+
 .fonte-light
 {
 	font-family: 'Lato', sans-serif;
