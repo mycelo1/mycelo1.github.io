@@ -1,0 +1,411 @@
+﻿html
+{
+  position: relative;
+  min-height: 100%;
+}
+
+body
+{
+	margin-bottom: 60px;
+	/*padding-top: 80px;*/
+}
+
+.footer
+{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+}
+
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 60px;
+    height: 60px;
+    padding-top: 0;
+}
+
+.fonte-light
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+}
+
+.fonte-normal
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+}
+
+.fonte-bold
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+}
+
+.fonte-heavy
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 900;
+}
+
+.fonte-cor-padrao
+{
+	color: rgb(95, 92, 93);
+	font-family: 'Lato', sans-serif;
+}
+
+.fonte-tamanho-70
+{
+	font-family: 'Lato', sans-serif;
+	font-size: 70%;
+}
+
+.fonte-tamanho-80
+{
+	font-family: 'Lato', sans-serif;
+	font-size: 80%;
+}
+
+.fonte-tamanho-90
+{
+	font-family: 'Lato', sans-serif;
+	font-size: 90%;
+}
+
+.fonte-tamanho-100
+{
+	font-family: 'Lato', sans-serif;
+	font-size: 100%;
+}
+
+.fonte-tamanho-120
+{
+	font-family: 'Lato', sans-serif;
+	font-size: 120%;
+}
+
+.fonte-tamanho-150
+{
+	font-family: 'Lato', sans-serif;
+	font-size: 150%;
+}
+
+.texto-direita
+{
+	text-align: right;
+}
+
+.texto-centro
+{
+	text-align: center;
+}
+
+.texto-sem-quebra
+{
+	white-space: nowrap;
+}
+
+.sem-underline
+{
+	text-decoration: none;
+}
+
+.cabec-fonte
+{
+	color: rgb(95, 92, 93);
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-size: 120%;
+}
+
+.cabec-fonte-profile
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 900;
+	font-size: 120%;
+}
+
+.cabec-borda-item
+{
+	border-left-style: solid;
+	border-left-color: rgb(180, 191, 207);
+	border-left-width: 3px;
+	border-right-style: solid;
+	border-right-color: rgb(180, 191, 207);
+	border-right-width: 3px;
+}
+
+.cabec-borda-profile
+{
+	border-color: rgb(95, 92, 93);
+	border: 1px solid;
+    border-radius: 15px;
+}
+
+.cabec-fundo
+{
+	background-color: rgb(213, 220, 230);
+}
+
+.cor-rodape-fonte
+{
+	color: #ffffff;
+}
+
+.cor-rodape-fundo
+{
+    background-color: rgb(175, 171, 170);
+}
+
+img.reduzir-img-50
+{
+    width: 50%;
+    height: auto;
+}
+
+.corpo-margem
+{
+	padding-left: 40px;
+	padding-right: 30px;
+}
+
+.sem-margem
+{
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.sem-margem-direita
+{
+	padding-right: 0px;
+}
+
+.margem-5
+{
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.margem-direita-10
+{
+	padding-right: 10px;
+}
+
+.margem-esquerda-10
+{
+	padding-left: 10px;
+}
+
+.margem-acima-5
+{
+	padding-top: 10px;
+}
+
+.margem-abaixo-5
+{
+	padding-bottom: 10px;
+}
+
+.coluna-margem
+{
+	padding-right: 10px;
+}
+
+.col-v-centro
+{
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.row-v-centro
+{
+    display: flex;
+    align-items: center;
+}
+
+.imagem-centro
+{
+	margin: 0 auto;
+}
+
+.painel-info-margem-top
+{
+    padding-top: 10px;
+}
+
+.painel-info-margem-bottom
+{
+    padding-bottom: 10px;
+}
+
+.painel-imagem-margem
+{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.painel-info-cor
+{
+    background-color: rgb(238, 238, 238);
+}
+
+.painel-cartao-borda
+{
+	border-left-style: solid;
+	border-left-color: rgb(8, 173, 233);
+	border-left-width: 5px;
+}
+
+.painel-cabec-fonte
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-size: 150%;
+}
+
+.painel-cartao-cabec-fonte
+{
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-size: 160%;
+}
+
+.painel-cabec-separador
+{
+	border-left-style: solid;
+	border-left-color: rgb(95, 92, 93);
+	border-left-width: 2px;
+}
+
+.painel-cabec-linha
+{
+	border-bottom-style: solid;
+	border-bottom-color: rgb(198, 204, 210);
+	border-bottom-width: 2px;
+}
+
+.painel-detalhe-linha
+{
+	border-bottom-style: solid;
+	border-bottom-color: rgb(198, 204, 210);
+	border-bottom-width: 1px;
+}
+
+.painel-fonte
+{
+	color: rgb(95, 92, 93);
+	font-family: 'Lato', sans-serif;
+}
+
+.botao-escuro
+{
+	color: rgb(95, 92, 93);
+	background-color: rgb(213, 220, 230);
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-size: 100%;
+	text-align: center;
+}
+
+.separador-info-cartao
+{
+	height: 5px;
+}
+
+.fonte-saldo
+{
+	color: rgb(83, 156, 103);
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	font-size: 130%;
+	text-align: right;
+}
+
+.painel-servicos-cor-fonte
+{
+	color: rgb(42, 111, 171);
+}
+
+.painel-servicos-borda
+{
+	border-left-style: solid;
+	border-left-color: rgb(4, 77, 135);
+	border-left-width: 5px;
+}
+
+.painel-atividades-borda
+{
+	border-left-style: solid;
+	border-left-color: rgb(228, 41, 48);
+	border-left-width: 5px;
+}
+
+.painel-atividades-cor-fonte
+{
+	color: rgb(228, 41, 48);
+}
+
+.icone-atividade-tamanho
+{
+	font-size: 170%;
+}
+
+.painel-faturas-borda
+{
+	border-left-style: solid;
+	border-left-color: rgb(101, 57, 177);
+	border-left-width: 5px;
+}
+
+.painel-faturas-cor-fonte
+{
+	color: rgb(101, 57, 177);
+}
+
+.bullet-fatura-proxima
+{
+	font-size: 100%;
+	color: rgb(1, 188, 211);
+}
+
+.bullet-fatura-atual
+{
+	font-size: 100%;
+	color: rgb(228, 41, 48);
+}
+
+.bullet-fatura-anterior
+{
+	font-size: 100%;
+	color: rgb(50, 184, 71);
+}
+
+.coluna-ver-fatura
+{
+	padding-left: 0px;
+	text-align: left;
+}
+
+.icone-ver-fatura
+{
+	font-size: 100%;
+	color: rgb(95, 92, 93);
+}
+
+.painel-credito-borda
+{
+	border-left-style: solid;
+	border-left-color: rgb(49, 185, 70);
+	border-left-width: 5px;
+}
+
+.painel-credito-cor-fonte
+{
+	color: rgb(49, 185, 70);
+}

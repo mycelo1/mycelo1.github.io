@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Exercício Front-end</title>
+
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+		<!-- estilos usados aqui -->
+		<!--<link href="css/sticky-footer-navbar.css" rel="stylesheet">-->
+		<link href="css/estilo.css" rel="stylesheet">
+
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+
+		<nav class="navbar navbar-default navbar-static-top cabec-fundo cabec-fonte">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed cabec-fundo" data-toggle="collapse" data-target="#navbar-principal">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">
+						<img src="images/sorocred.gif" alt="SOROCRED" class="reduzir-img-50" />
+					</a>
+				</div>
+				<div class="collapse navbar-collapse" id="navbar-principal">
+					<ul class="nav navbar-nav navbar-left">
+						<li>
+							<a href="cartao-de-credito.html" class="cabec-borda-item">
+								<span>
+									Cartão de Crédito
+								</span>
+							</a>
+						</li>
+						<li>
+							<a href="cartao-pre-pago.html">
+								Cartão Pré-pago
+							</a>
+						</li>
+						<li>
+							<a href="investimento.html">
+								Investimento
+							</a>
+						</li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="profile.html" class="cabec-fonte-profile cabec-borda-profile">
+								Marcello Tavares
+							</a>
+						</li>
+						<li>
+							<a href="sair.html">
+								sair
+							</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</nav>
+
+		<div class="container-fluid">
+			<div class="row corpo-margem">
+				<div class="col-md-6 sem-margem">
+					<div class="container-fluid">
+						<div class="row coluna-margem">
+							<div class="col-md-12 sem-margem">
+								<div class="container-fluid">
+
+									<!-- PAINEL - CARTÃO DE CRÉDITO -->
+									<div class="row painel-info-margem-bottom">
+										<div class="col-md-12 painel-info-cor sem-margem painel-cartao-borda">
+											<div class="container-fluid">
+												<div class="row row-v-centro painel-cabec-linha">
+													<div class="col-xs-4 sem-margem-direita painel-cartao-cabec-fonte">
+														Cartão de Crédito
+													</div>
+													<div class="col-xs-8 texto-direita">
+														<span class="sem-margem texto-sem-quebra">
+															<span class="fonte-bold">
+																Conta:
+															</span>
+															<span class="margem-direita-10 fonte-normal fonte-tamanho-90">
+																0123456789
+															</span>
+														</span>
+														<span class="sem-margem texto-sem-quebra">
+															<span class="fonte-bold painel-cabec-separador margem-esquerda-10">
+																Cartão:
+															</span>
+															<span class="fonte-normal fonte-tamanho-90 texto-sem-quebra">
+																6278
+																&nbsp;
+																&#8226;&#8226;&#8226;&#8226;
+																&nbsp;
+																&#8226;&#8226;&#8226;&#8226;
+																&nbsp;
+																0000
+															</span>
+														</span>
+													</div>
+												</div>
+
+												<div class="row row-v-centro painel-detalhe-linha">
+													<div class="col-xs-5 margem-5">
+
+														<div class="container-fluid">
+															<div class="row sem-margem">
+																<div class="col-md-12 sem-margem">
+																	<img src="images/cartao.png" class="img-responsive" />
+																</div>
+															</div>
+															<div class="row sem-margem">
+																<div class="col-md-12">
+																	<div class="margem-5 botao-escuro">
+																		Conheça melhor o seu cartão
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="col-xs-7 margem-5">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-120 texto-direita">
+																		Saldo Disponível:
+																	</div>
+																	<div class="fonte-saldo">
+																		1.200,00
+																	</div>
+																	<div class="separador-info-cartao">
+																		&nbsp;
+																	</div>
+																	<div class="fonte-cor-padrao fonte-light fonte-tamanho-120 texto-direita">
+																		Limite Total:
+																	</div>
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-120 texto-direita">
+																		2.500,00
+																	</div>
+																	<div class="separador-info-cartao">
+																		&nbsp;
+																	</div>
+																	<div class="fonte-cor-padrao fonte-light fonte-tamanho-120 texto-direita">
+																		Super Pontos:
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-120 texto-direita">
+																		4.345 pts
+																	</div>
+																	<div class="separador-info-cartao">
+																		&nbsp;
+																	</div>
+																	<div class="fonte-cor-padrao fonte-light fonte-tamanho-120 texto-direita">
+																		Vencimento:
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-120 texto-direita">
+																		Todo dia 10
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- PAINEL - SERVIÇOS DO CARTÃO -->
+									<div class="row">
+										<div class="col-md-12 sem-margem painel-info-cor painel-servicos-borda">
+
+											<div class="container-fluid">
+												<div class="row row-v-centro painel-cabec-linha">
+													<div class="col-md-12 painel-cabec-fonte painel-servicos-cor-fonte">
+														<span>
+															SERVIÇOS DESTE CARTÃO
+														</span>
+														<a href="#" role="button" data-toggle="collapse" data-target="#painel-servicos">
+															<span id="icon-painel" class="glyphicon glyphicon-triangle-bottom painel-servicos-cor-fonte">
+															</span>
+														</a>
+													</div>
+												</div>
+
+												<div class="row collapse" id="painel-servicos">
+													<div class="col-md-12 painel-info-cor">
+														<div>SERVIÇOS</div>
+														<div>SERVIÇOS</div>
+														<div>SERVIÇOS</div>
+														<div>SERVIÇOS</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- PAINEL - ATIVIDADES -->
+									<div class="row painel-info-margem-top painel-info-margem-bottom">
+										<div class="col-md-12 sem-margem painel-info-cor painel-atividades-borda">
+
+											<div class="container-fluid">
+												<div class="row row-v-centro painel-cabec-linha">
+													<div class="col-xs-9 painel-cabec-fonte painel-atividades-cor-fonte">
+														<span>
+															ATIVIDADES
+														</span>
+														<a href="#" role="button" data-toggle="collapse" data-target="#painel-atividades">
+															<span id="icon-painel" class="glyphicon glyphicon-triangle-top painel-atividades-cor-fonte">
+															</span>
+														</a>
+													</div>
+													<div class="col-xs-3 texto-direita margem-5 margem-direita-10">
+														<div class="botao-escuro">
+															VER TODAS
+														</div>
+													</div>
+												</div>
+
+												<div class="row collapse in sem-margem" id="painel-atividades">
+													<div class="col-xs-12 sem-margem">
+														<div class="container-fluid">
+															<div class="row row-v-centro painel-detalhe-linha">
+																<div class="col-xs-1">
+																	<div class="texto-direita icone-atividade-tamanho">
+																		<span class="glyphicon glyphicon-road">
+																		</span>
+																	</div>
+																</div>
+																<div class="col-xs-7">
+																	<div class="fonte-cor-padrao fonte-heavy fonte-tamanho-80">
+																		Automotivo
+																	</div>
+																	<div class="fonte-cor-padrao fonte-light fonte-tamanho-120">
+																		Estacionamento Hosp São Luiz
+																	</div>
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-120">
+																		R$ 130,00
+																	</div>
+																</div>
+																<div class="col-xs-4">
+
+																	<div class="fonte-cor-padrao fonte-bold">
+																		03 de 06
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Hoje
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		São Caetano do Sul
+																	</div>
+																</div>
+															</div>
+
+															<div class="row row-v-centro painel-detalhe-linha">
+																<div class="col-xs-1">
+																	<div class="texto-direita icone-atividade-tamanho">
+																		<span class="glyphicon glyphicon-usd">
+																		</span>
+																	</div>
+																</div>
+																<div class="col-xs-7">
+																	<div class="fonte-cor-padrao fonte-heavy fonte-tamanho-100">
+																		Aumento de Limite
+																	</div>
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-120">
+																		R$ 2.500,00
+																	</div>
+																</div>
+																<div class="col-xs-4">
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Hoje
+																	</div>
+																</div>
+															</div>
+
+															<div class="row row-v-centro painel-detalhe-linha">
+																<div class="col-xs-1">
+																	<div class="texto-direita icone-atividade-tamanho">
+																		<span class="glyphicon glyphicon-shopping-cart">
+																		</span>
+																	</div>
+																</div>
+																<div class="col-xs-7">
+																	<div class="fonte-cor-padrao fonte-heavy fonte-tamanho-80">
+																		Supermercado
+																	</div>
+																	<div class="fonte-cor-padrao fonte-light fonte-tamanho-120">
+																		Bom Lugar - Sta. Terezinha
+																	</div>
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-120">
+																		R$ 130,00
+																	</div>
+																</div>
+																<div class="col-xs-4">
+																	<div class="fonte-cor-padrao fonte-bold">
+																		09/11/2015
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Sorocaba
+																	</div>
+																</div>
+															</div>
+
+															<div class="row row-v-centro painel-detalhe-linha">
+																<div class="col-xs-1">
+																	<div class="texto-direita icone-atividade-tamanho">
+																		<span class="glyphicon glyphicon-send">
+																		</span>
+																	</div>
+																</div>
+																<div class="col-xs-7">
+																	<div class="fonte-cor-padrao fonte-heavy fonte-tamanho-100">
+																		Enviamos um novo cartão para você
+																	</div>
+																</div>
+																<div class="col-xs-4">
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		02/11/2015
+																	</div>
+																</div>
+															</div>
+
+															<div class="row row-v-centro painel-detalhe-linha">
+																<div class="col-xs-1">
+																	<div class="texto-direita icone-atividade-tamanho">
+																		<span class="glyphicon glyphicon-edit">
+																		</span>
+																	</div>
+																</div>
+																<div class="col-xs-7">
+																	<div class="fonte-cor-padrao fonte-heavy fonte-tamanho-80">
+																		Assinatura
+																	</div>
+																	<div class="fonte-cor-padrao fonte-light fonte-tamanho-120">
+																		Jornal Folha de São Paulo
+																	</div>
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-120">
+																		R$ 50,00
+																	</div>
+																</div>
+																<div class="col-xs-4">
+																	<div class="fonte-cor-padrao fonte-bold">
+																		01 de 12
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		09/11/2015
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		São Paulo
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+                                            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			        </div>
+				</div>
+
+				<div class="col-md-6 sem-margem">
+					<div class="container-fluid">
+						<div class="row coluna-margem">
+							<div class="col-md-12 sem-margem">
+								<div class="container-fluid">
+
+									<!-- PAINEL - BANNER -->
+									<div class="row painel-info-margem-bottom">
+										<div class="col-md-12 painel-imagem-margem">
+											<img src="images/capa.jpg" class="img-responsive imagem-centro" />
+										</div>
+									</div>
+
+									<!-- PAINEL - FATURAS -->
+									<div class="row">
+										<div class="col-md-12 sem-margem painel-info-cor painel-faturas-borda">
+
+											<div class="container-fluid">
+												<div class="row row-v-centro painel-cabec-linha">
+													<div class="col-xs-9 painel-cabec-fonte painel-faturas-cor-fonte">
+														<span>
+															FATURAS
+														</span>
+														<a href="#" role="button" data-toggle="collapse" data-target="#painel-faturas">
+															<span id="icon-painel" class="glyphicon glyphicon-triangle-top painel-faturas-cor-fonte">
+															</span>
+														</a>
+													</div>
+													<div class="col-xs-3 texto-direita margem-5 margem-direita-10">
+														<div class="botao-escuro">
+															VER TODAS
+														</div>
+													</div>
+												</div>
+
+												<div class="row collapse in sem-margem" id="painel-faturas">
+													<div class="col-xs-12 sem-margem">
+														<div class="container-fluid">
+															<div class="row row-v-centro">
+																<div class="col-xs-2 texto-centro">
+																	<div class="fonte-bold fonte-tamanho-120">
+																		Referência
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-bold fonte-tamanho-120">
+																		Vencimento
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-bold fonte-tamanho-120">
+																		Valor
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-bold fonte-tamanho-120">
+																		Situação
+																	</div>
+																</div>
+																<div class="col-xs-1">
+																</div>
+															</div>
+															<div class="row row-v-centro">
+																<div class="col-xs-2 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		1601
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		10/01/2016
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		R$ 1.000,00
+																	</div>
+																</div>
+																<div class="col-xs-1 texto-direita sem-margem-direita">
+																	<span class="glyphicon glyphicon-asterisk bullet-fatura-proxima">
+																	</span>
+																</div>
+																<div class="col-xs-2">
+																	<span class="fonte-normal fonte-tamanho-120">
+																		Próxima
+																	</span>
+																</div>
+																<div class="col-xs-1 coluna-ver-fatura">
+																	<span class="glyphicon glyphicon-search icone-ver-fatura">
+																	</span>
+																</div>
+															</div>
+															<div class="row row-v-centro">
+																<div class="col-xs-2 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		1512
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		10/12/2015
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		R$ 1.000,00
+																	</div>
+																</div>
+																<div class="col-xs-1 texto-direita sem-margem-direita">
+																	<span class="glyphicon glyphicon-asterisk bullet-fatura-atual">
+																	</span>
+																</div>
+																<div class="col-xs-2">
+																	<span class="fonte-normal fonte-tamanho-120">
+																		Atual
+																	</span>
+																</div>
+																<div class="col-xs-1 coluna-ver-fatura">
+																	<span class="glyphicon glyphicon-search icone-ver-fatura">
+																	</span>
+																</div>
+															</div>
+															<div class="row row-v-centro">
+																<div class="col-xs-2 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		1511
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		10/11/2015
+																	</div>
+																</div>
+																<div class="col-xs-3 texto-centro">
+																	<div class="fonte-normal fonte-tamanho-120">
+																		R$ 1.000,00
+																	</div>
+																</div>
+																<div class="col-xs-1 texto-direita sem-margem-direita">
+																	<span class="glyphicon glyphicon-asterisk bullet-fatura-anterior">
+																	</span>
+																</div>
+																<div class="col-xs-2">
+																	<span class="fonte-normal fonte-tamanho-120">
+																		Anterior
+																	</span>
+																</div>
+																<div class="col-xs-1 coluna-ver-fatura">
+																	<span class="glyphicon glyphicon-search icone-ver-fatura">
+																	</span>
+																</div>
+															</div>
+															<div class="row painel-detalhe-linha">
+																<div class="col-xs-12 margem-abaixo-5">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+                                            </div>
+										</div>
+									</div>
+
+									<!-- PAINEL - LINHAS DE CRÉDITO -->
+									<div class="row painel-info-margem-top painel-info-margem-bottom">
+										<div class="col-md-12 sem-margem painel-info-cor painel-credito-borda">
+
+											<div class="container-fluid">
+												<div class="row row-v-centro painel-cabec-linha">
+													<div class="col-md-12 painel-cabec-fonte painel-credito-cor-fonte">
+														<span>
+															LINHAS DE CRÉDITO
+														</span>
+														<a href="#" role="button" data-toggle="collapse" data-target="#painel-credito">
+															<span id="icon-painel" class="glyphicon glyphicon-triangle-top painel-credito-cor-fonte">
+															</span>
+														</a>
+													</div>
+												</div>
+
+												<div class="row collapse in sem-margem" id="painel-credito">
+													<div class="col-xs-12 sem-margem">
+														<div class="container-fluid">
+															<div class="row row-v-centro painel-detalhe-linha">
+																<div class="col-xs-1">
+																	<div class="texto-direita icone-atividade-tamanho">
+																		<span class="glyphicon glyphicon-shopping-cart">
+																		</span>
+																	</div>
+																</div>
+																<div class="col-xs-7">
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-90">
+																		Limite pré-aprovado
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-120">
+																		Financiamento
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Contrate já, ligue 0800 55 55 15
+																	</div>
+																</div>
+																<div class="col-xs-4">
+																	<div class="fonte-cor-padrao fonte-heavy">
+																		R$ 22.500,00
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Validade
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		25/01/2016
+																	</div>
+																</div>
+															</div>
+
+															<div class="row row-v-centro painel-detalhe-linha">
+																<div class="col-xs-1">
+																	<div class="texto-direita icone-atividade-tamanho">
+																		<span class="glyphicon glyphicon-user">
+																		</span>
+																	</div>
+																</div>
+																<div class="col-xs-7">
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-90">
+																		Limite pré-aprovado
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-120">
+																		Empréstimo Pessoal
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Contrate já, ligue 0800 55 55 15
+																	</div>
+																</div>
+																<div class="col-xs-4">
+																	<div class="fonte-cor-padrao fonte-heavy">
+																		R$ 3.500,00
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Validade
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		25/12/2015
+																	</div>
+																</div>
+															</div>
+
+															<div class="row row-v-centro painel-detalhe-linha">
+																<div class="col-xs-1">
+																	<div class="texto-direita icone-atividade-tamanho">
+																		<span class="glyphicon glyphicon-home">
+																		</span>
+																	</div>
+																</div>
+																<div class="col-xs-7">
+																	<div class="fonte-cor-padrao fonte-bold fonte-tamanho-90">
+																		Limite pré-aprovado
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-120">
+																		Casa Própria
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Contrate já, ligue 0800 55 55 15
+																	</div>
+																</div>
+																<div class="col-xs-4">
+																	<div class="fonte-cor-padrao fonte-heavy">
+																		R$ 150.000,00
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		Validade
+																	</div>
+																	<div class="fonte-cor-padrao fonte-normal fonte-tamanho-100">
+																		01/02/2016
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+                                            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			        </div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="footer cor-rodape-fundo">
+			<div class="container-fluid">
+				<div class="row row-v-centro">
+					<div class="col-md-4">
+						<a class="navbar-brand" href="chat.html">
+							<span class="glyphicon glyphicon-comment cor-rodape-fonte">
+							</span>
+							<span class="fonte-heavy cor-rodape-fonte">
+								Iniciar um Chat agora
+							</span>
+						</a>
+					</div>
+					<div class="col-md-5">
+						<a class="navbar-brand" href="ligacao.html">
+							<span class="glyphicon glyphicon-earphone cor-rodape-fonte">
+							</span>
+							<span class="fonte-heavy cor-rodape-fonte">
+								Quero receber uma ligação da Sorocred
+							</span>
+						</a>
+					</div>
+					<div class="col-md-3">
+						<div class="fonte-heavy cor-rodape-fonte">
+							Central de Relacionamento
+						</div>
+						<div class="fonte-heavy cor-rodape-fonte">
+							0800 55 55 15
+						</div>
+                    </div>
+                </div>
+			</div>
+		</footer>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+
+		<script language="javascript">
+			$(document).ready(function ()
+			{
+				$('.collapse')
+					.on('shown.bs.collapse', function()
+					{
+						$(this)
+							.parent()
+							.find(".glyphicon-triangle-bottom")
+							.removeClass("glyphicon-triangle-bottom")
+							.addClass("glyphicon-triangle-top");
+					})
+					.on('hidden.bs.collapse', function()
+					{
+						$(this)
+							.parent()
+							.find(".glyphicon-triangle-top")
+							.removeClass("glyphicon-triangle-top")
+							.addClass("glyphicon-triangle-bottom");
+					});
+			});
+        </script>
+	</body>
+</html>
