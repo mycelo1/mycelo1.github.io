@@ -1,5 +1,9 @@
 <html>
   <head>
+  <title>XO</title>
+  <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
     <script type="text/javascript">
       var arrTabuleiro = new Array();
       var cntLivres = 25;
@@ -28,40 +32,21 @@
       {
         var nomeCanvas = "canvas" + nroCanvas;
         var objCanvas = document.getElementById(nomeCanvas);
-        var ctxCanvas = objCanvas.getContext("2d");
-
-        ctxCanvas.beginPath();
-        ctxCanvas.rect(10, 10, 30, 30);
-        ctxCanvas.fillStyle = "black";
-        ctxCanvas.fill();
-        ctxCanvas.closePath();
+        objCanvas.style.backgroundColor = 'black';
       }
 
       function pintarX(nroCanvas)
       {
         var nomeCanvas = "canvas" + nroCanvas;
         var objCanvas = document.getElementById(nomeCanvas);
-        var ctxCanvas = objCanvas.getContext("2d");
-
-        ctxCanvas.beginPath();
-        ctxCanvas.moveTo(10, 10);
-        ctxCanvas.lineTo(40, 40);
-        ctxCanvas.moveTo(40, 10);
-        ctxCanvas.lineTo(10, 40);
-        ctxCanvas.stroke();
-        ctxCanvas.closePath();
+        objCanvas.innerHTML = '&#x2716;';
       }
 
       function pintarO(nroCanvas)
       {
         var nomeCanvas = "canvas" + nroCanvas;
         var objCanvas = document.getElementById(nomeCanvas);
-        var ctxCanvas = objCanvas.getContext("2d");
-
-        ctxCanvas.beginPath();
-        ctxCanvas.arc(25, 25, 20, 0, Math.PI * 2, true);
-        ctxCanvas.stroke();
-        ctxCanvas.closePath();
+        objCanvas.innerHTML = '&#x3007;'
       }
 
       window.onload = function()
@@ -622,45 +607,118 @@
         }
       }
     </script>
+
+    <style>
+      body{
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      table {
+        border-spacing: 0;
+        margin: 0 auto;
+      }
+      .outer {
+        display: table;
+        width: 100%;
+        height: 100%; /* Height can be anything */
+      }
+
+      .inner {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      .boardCell {
+        width: 45px;
+        height: 45px;
+        border: 1px solid #aaa;
+        font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+        padding: 0;
+        line-height: 45px;
+        color: #222;
+      }
+
+      .boardCell i {
+        font-size: 28px;
+      }
+
+      .score-box {
+        width:250px;
+        white-space:nowrap;
+        margin:auto;
+      }
+
+      @media all and (max-width: 500px), all and (max-height: 500px) {
+        
+        #resizeBoardButton {
+          display:none;
+        }
+
+        .boardCell {
+          width: 35px;
+          height: 35px;
+          font-size: 24px;
+          line-height: 35px;
+        }
+
+        .boardCell i {
+          font-size: 20px;
+        }
+
+      }
+    </style>
   </head>
   <body>
-    <table border="0" style="font-family:verdana;">
-      <tr>
-        <td>
-          <div id="box">
-            <canvas id="canvas0" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(00)"></canvas>
-            <canvas id="canvas1" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(01)"></canvas>
-            <canvas id="canvas2" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(02)"></canvas>
-            <canvas id="canvas3" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(03)"></canvas>
-            <canvas id="canvas4" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(04)"></canvas>
-            <br>
-            <canvas id="canvas5" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(05)"></canvas>
-            <canvas id="canvas6" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(06)"></canvas>
-            <canvas id="canvas7" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(07)"></canvas>
-            <canvas id="canvas8" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(08)"></canvas>
-            <canvas id="canvas9" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(09)"></canvas>
-            <br>
-            <canvas id="canvas10" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(10)"></canvas>
-            <canvas id="canvas11" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(11)"></canvas>
-            <canvas id="canvas12" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(12)"></canvas>
-            <canvas id="canvas13" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(13)"></canvas>
-            <canvas id="canvas14" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(14)"></canvas>
-            <br>
-            <canvas id="canvas15" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(15)"></canvas>
-            <canvas id="canvas16" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(16)"></canvas>
-            <canvas id="canvas17" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(17)"></canvas>
-            <canvas id="canvas18" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(18)"></canvas>
-            <canvas id="canvas19" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(19)"></canvas>
-            <br>
-            <canvas id="canvas20" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(20)"></canvas>
-            <canvas id="canvas21" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(21)"></canvas>
-            <canvas id="canvas22" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(22)"></canvas>
-            <canvas id="canvas23" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(23)"></canvas>
-            <canvas id="canvas24" width="50" height="50" style="border:1px solid black" onclick="canvasClicked(24)"></canvas>
-          </div>
-          <br>
-        </td>
-        <td align="center" valign="top" width="200px" style="white-space:nowrap">
+
+    <div class="outer">
+      <div class="inner">
+
+        <table id="board" class="board">
+          <tbody>
+            <tr>
+            <td><div id="canvas0" class="boardCell" onclick="canvasClicked(00)"></div></td>
+            <td><div id="canvas1" class="boardCell" onclick="canvasClicked(01)"></div></td>
+            <td><div id="canvas2" class="boardCell" onclick="canvasClicked(02)"></div></td>
+            <td><div id="canvas3" class="boardCell" onclick="canvasClicked(03)"></div></td>
+            <td><div id="canvas4" class="boardCell" onclick="canvasClicked(04)"></div></td>
+            </tr><tr>
+            <td><div id="canvas5" class="boardCell" onclick="canvasClicked(05)"></div></td>
+            <td><div id="canvas6" class="boardCell" onclick="canvasClicked(06)"></div></td>
+            <td><div id="canvas7" class="boardCell" onclick="canvasClicked(07)"></div></td>
+            <td><div id="canvas8" class="boardCell" onclick="canvasClicked(08)"></div></td>
+            <td><div id="canvas9" class="boardCell" onclick="canvasClicked(09)"></div></td>
+            </tr><tr>
+            <td><div id="canvas10" class="boardCell" onclick="canvasClicked(10)"></div></td>
+            <td><div id="canvas11" class="boardCell" onclick="canvasClicked(11)"></div></td>
+            <td><div id="canvas12" class="boardCell" onclick="canvasClicked(12)"></div></td>
+            <td><div id="canvas13" class="boardCell" onclick="canvasClicked(13)"></div></td>
+            <td><div id="canvas14" class="boardCell" onclick="canvasClicked(14)"></div></td>
+            </tr><tr>
+            <td><div id="canvas15" class="boardCell" onclick="canvasClicked(15)"></div></td>
+            <td><div id="canvas16" class="boardCell" onclick="canvasClicked(16)"></div></td>
+            <td><div id="canvas17" class="boardCell" onclick="canvasClicked(17)"></div></td>
+            <td><div id="canvas18" class="boardCell" onclick="canvasClicked(18)"></div></td>
+            <td><div id="canvas19" class="boardCell" onclick="canvasClicked(19)"></div></td>
+            </tr><tr>
+            <td><div id="canvas20" class="boardCell" onclick="canvasClicked(20)"></div></td>
+            <td><div id="canvas21" class="boardCell" onclick="canvasClicked(21)"></div></td>
+            <td><div id="canvas22" class="boardCell" onclick="canvasClicked(22)"></div></td>
+            <td><div id="canvas23" class="boardCell" onclick="canvasClicked(23)"></div></td>
+            <td><div id="canvas24" class="boardCell" onclick="canvasClicked(24)"></div></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="score-box">
+
+          <br />
           <label>SCORE:</label>
           <br>
           <strong><span id="scoreF">
@@ -668,6 +726,7 @@
           </span></strong>
           <br>
           <br>
+
           <table border="0" width="85%">
             <tr><td>
               <table style="border:1px solid black;font-size:10px" width="100%">
@@ -731,8 +790,10 @@
               </table>
             </td></tr>
           </table>
-        </td>
-      </tr>
-    </table>
+        </div>
+
+      </div>
+    </div>
+
   </body>
 </html>
