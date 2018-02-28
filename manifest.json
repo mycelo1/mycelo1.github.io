@@ -1,0 +1,14 @@
+{
+  "background_color": "#ffffff",
+  "name": "XO",
+  "short_name": "XO",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "xo.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
