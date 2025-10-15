@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Primary Account Number Generator</title>
+    <!-- VT323 for retro headings -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <!-- Share Tech Mono for calculator-style digits -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'VT323', monospace;
+            background: radial-gradient(ellipse at center 80px, #222 60%, #191970 100%);
+            color: #00ffae;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* Glowing grid lines */
+        .grid-bg {
+            position: absolute;
+            left: 0; top: 0; right: 0; bottom: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.28;
+        }
+        .container {
+            max-width: 430px;
+            margin: 60px auto 32px auto;
+            background: rgba(30, 30, 50, 0.97);
+            border: 3px solid #00ffae;
+            border-radius: 16px;
+            box-shadow: 0 0 40px #00ffae7f, 0 0 0 12px #353535 inset, 0 0 60px #191970 inset;
+            padding: 36px 28px 28px 28px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .container:before {
+            content: '';
+            display: block;
+            position: absolute;
+            left: -15px; right: -15px; top: -15px; bottom: -15px;
+            border-radius: 22px;
+            border: 2px dashed #00ffae44;
+            box-shadow: 0 0 30px #00ffae99;
+            pointer-events: none;
+            z-index: 1;
+        }
+        h2 {
+            font-family: 'VT323', monospace;
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 6px #00ffae, 0 0 20px #00ffae77, 0 0 2px #fff;
+            position: relative;
+            z-index: 3;
+        }
+        .trinket {
+            display: block;
+            margin: 0 auto 16px auto;
+            font-size: 2em;
+            filter: drop-shadow(0 0 10px #00ffae88);
+            animation: flicker 1.2s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            40% { opacity: 0.7; }
+            80% { opacity: 1; }
+            100% { opacity: 0.90; }
+        }
+        label {
+            display: block;
+            font-size: 1.18em;
+            margin-bottom: 15px;
+            color: #00ffae;
+            text-shadow: 0 0 5px #00ffae66;
+            position: relative;
+            z-index: 3;
+        }
+        input[type="text"], input[type="number"] {
+            background: #111;
+            border: 2px solid #00ffae;
+            color: #00ffae;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2em;
+            padding: 9px 16px;
+            border-radius: 8px;
+            margin: 5px 0 12px 0;
+            box-shadow: 0 0 10px #00ffae44 inset;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.12em;
+        }
+        input:focus {
+            border-color: #fff200;
+            box-shadow: 0 0 16px #fff20077;
+        }
+        button {
+            background: linear-gradient(90deg, #00ffae 0%, #fff200 100%);
+            color: #222;
+            border: none;
+            font-family: 'VT323', monospace;
+            font-size: 1.3em;
+            font-weight: bold;
+            padding: 12px 44px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #00ffae77, 0 0 10px #fff200bb inset;
+            cursor: pointer;
+            margin: 20px 0 10px 0;
+            transition: background 0.2s, color 0.2s, box-shadow 0.3s;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 3;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #00ffae 0%, #ffd000 100%);
+            color: #191919;
+            box-shadow: 0 0 25px #fff200bb, 0 0 0 4px #00ffae88 inset;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 0 10px;
+            background: rgba(0,255,174,0.09);
+            border-radius: 10px;
+            box-shadow: 0 0 6px #00ffae33 inset;
+            position: relative;
+            z-index: 3;
+        }
+        .result li {
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 0.13em;
+            font-size: 1.55em;
+            color: #fff200;
+            text-shadow: 0 0 16px #fff200cc, 0 0 16px #00ffae22, 0 0 6px #fff;
+            border-bottom: 1px dashed #00ffae33;
+            list-style: none;
+            margin: 0 0 3px 0;
+            background: linear-gradient(90deg, #222 0%, #393939 100%);
+            border-radius: 5px;
+            box-shadow: 0 0 10px #fff20033 inset;
+            padding: 7px 0.6em 7px 0.6em;
+            border-top: 2px solid #fff20033;
+            border-bottom: 2px solid #00ffae33;
+        }
+        /* CRT scanline effect */
+        .scanlines {
+            pointer-events: none;
+            position: fixed;
+            left: 0; top: 0; right: 0; bottom: 0;
+            z-index: 999;
+            opacity: 0.10;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 2px,
+                #00ffae22 4px,
+                transparent 5px,
+                transparent 7px
+            );
+            mix-blend-mode: lighten;
+        }
+        @media (max-width: 500px) {
+            .container { max-width: 98vw; padding: 10vw 3vw; }
+            h2 { font-size: 1.3em; }
+            .result li { font-size: 1.1em; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid background SVG -->
+    <svg class="grid-bg" width="100%" height="100%" viewBox="0 0 600 600" preserveAspectRatio="none">
+        <g stroke="#00ffae" stroke-width="1">
+            <line x1="0" y1="50" x2="600" y2="50" />
+            <line x1="0" y1="120" x2="600" y2="120" />
+            <line x1="0" y1="190" x2="600" y2="190" />
+            <line x1="0" y1="260" x2="600" y2="260" />
+            <line x1="0" y1="330" x2="600" y2="330" />
+            <line x1="0" y1="400" x2="600" y2="400" />
+            <line x1="0" y1="470" x2="600" y2="470" />
+            <line x1="0" y1="540" x2="600" y2="540" />
+            <!-- vertical grid lines -->
+            <line x1="60" y1="0" x2="60" y2="600" />
+            <line x1="160" y1="0" x2="160" y2="600" />
+            <line x1="260" y1="0" x2="260" y2="600" />
+            <line x1="360" y1="0" x2="360" y2="600" />
+            <line x1="460" y1="0" x2="460" y2="600" />
+            <line x1="560" y1="0" x2="560" y2="600" />
+        </g>
+    </svg>
+    <div class="container">
+        <span class="trinket">🧮</span>
+        <h2>Retro PAN Generator</h2>
+        <label>
+            Bank Id Number:<br>
+            <input type="text" id="prefix" maxlength="10" placeholder="e.g. 400000">
+        </label>
+        <label>
+            PAN Length:<br>
+            <input type="number" id="length" min="8" max="32" value="16">
+        </label>
+        <button onclick="generate()">Generate</button>
+        <ul class="result" id="output"></ul>
+    </div>
+    <div class="scanlines"></div>
+    <script>
+    function addCheckDigit(digits) {
+        let sum = 0;
+        let alternate = true;
+        for (let i = digits.length - 1; i >= 0; --i) {
+            let num = parseInt(digits[i], 10);
+            if (alternate) {
+                num *= 2;
+                if (num > 9) num -= 9;
+            }
+            sum += num;
+            alternate = !alternate;
+        }
+        let check_digit = (10 - (sum % 10)) % 10;
+        return digits + check_digit;
+    }
+
+    function randomDigits(count) {
+        let s = "";
+        for (let i = 0; i < count; ++i) {
+            s += Math.floor(Math.random() * 10);
+        }
+        return s;
+    }
+
+    function generate() {
+        const prefix = document.getElementById("prefix").value.replace(/\D/g,"");
+        let length = parseInt(document.getElementById("length").value, 10) || 16;
+        if (length < prefix.length + 1) length = prefix.length + 1;
+        let output = document.getElementById("output");
+        output.innerHTML = "";
+        for (let i = 0; i < 10; ++i) {
+            let digits = prefix + randomDigits(length - prefix.length - 1);
+            let full = addCheckDigit(digits);
+            let li = document.createElement("li");
+            li.textContent = full;
+            output.appendChild(li);
+        }
+    }
+    </script>
+</body>
+</html>
