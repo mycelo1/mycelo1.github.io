@@ -184,6 +184,23 @@
             text-align: left;
             margin-right: 10px;
         }
+        .forms-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .form-column {
+            flex: 1;
+        }
+        .form-column:first-child {
+            border-right: 2px solid #00ffae44;
+            padding-right: 20px;
+            margin-right: -20px;
+        }
+        .form-column:last-child {
+            padding-left: 20px;
+        }
         /* CRT scanline effect */
         .scanlines {
             pointer-events: none;
@@ -237,15 +254,27 @@
     <div class="container">
         <span class="trinket">🧮</span>
         <h2>Retro PAN Generator</h2>
-        <label>
-            Bank Id Number:<br>
-            <input type="text" id="prefix" maxlength="10" placeholder="e.g. 400000">
-        </label>
-        <label>
-            PAN Length:<br>
-            <input type="number" id="length" min="8" max="32" value="16">
-        </label>
-        <button onclick="generate()">Generate</button>
+        <div class="forms-container">
+            <div class="form-column">
+                <label>
+                    Bank Id Number:<br>
+                    <input type="text" id="prefix" maxlength="10">
+                </label>
+                <label>
+                    PAN Length:<br>
+                    <input type="number" id="length" min="8" max="32" value="16">
+                </label>
+                <button onclick="generate()">Generate</button>
+            </div>
+            <div class="form-column">
+                <label>
+                    Complete PAN Number:<br>
+                    <input type="text" id="panInput">
+                </label>
+                <button onclick="checkPan()">Check PAN Digits</button>
+                <div id="validationResult" class="result" style="margin-top: 10px; padding: 10px; display: none;"></div>
+            </div>
+        </div>
         <ul class="result" id="output"></ul>
     </div>
     <div class="scanlines"></div>
@@ -308,6 +337,36 @@
             li.appendChild(btn);
 
             output.appendChild(li);
+        }
+    }
+
+    function checkPan() {
+        const pan = document.getElementById("panInput").value.replace(/\D/g, "");
+        const validationResult = document.getElementById("validationResult");
+        validationResult.style.display = 'block';
+        validationResult.innerHTML = "";
+
+        if (pan.length < 8) {
+            validationResult.innerHTML = "<span style='color: #ff6b6b;'>PAN too short</span>";
+            return;
+        }
+
+        let sum = 0;
+        let alternate = false;
+        for (let i = pan.length - 1; i >= 0; --i) {
+            let num = parseInt(pan[i], 10);
+            if (alternate) {
+                num *= 2;
+                if (num > 9) num -= 9;
+            }
+            sum += num;
+            alternate = !alternate;
+        }
+
+        if (sum % 10 === 0) {
+            validationResult.innerHTML = "<span style='color: #00ffae;'>Valid PAN</span>";
+        } else {
+            validationResult.innerHTML = "<span style='color: #ff6b6b;'>Invalid PAN</span>";
         }
     }
     </script>
