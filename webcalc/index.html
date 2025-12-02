@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#c0c0c0">
+    <meta name="description" content="Windows XP Style Calculator - Offline PWA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Calculator">
+    <title>Windows XP Style Calculator</title>
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Windows%20XP%20Calculator%22,%22short_name%22:%22Calculator%22,%22start_url%22:%22./%22,%22scope%22:%22./%22,%22display%22:%22standalone%22,%22orientation%22:%22any%22,%22background_color%22:%22%23c0c0c0%22,%22theme_color%22:%22%23c0c0c0%22,%22categories%22:[%22productivity%22],%22screenshots%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%23c0c0c0' width='512' height='512'/><rect fill='%23000080' x='40' y='40' width='432' height='80'/><text x='256' y='100' font-size='48' fill='white' text-anchor='middle' font-weight='bold'>CALC</text><rect fill='%23dfdfdf' x='80' y='180' width='352' height='260'/></svg>%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22form_factor%22:%22wide%22},{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23c0c0c0' width='192' height='192'/><rect fill='%23000080' x='16' y='16' width='160' height='40'/><text x='96' y='48' font-size='24' fill='white' text-anchor='middle' font-weight='bold'>CALC</text><rect fill='%23dfdfdf' x='32' y='72' width='128' height='80'/></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22form_factor%22:%22narrow%22}],%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23c0c0c0' width='192' height='192'/><rect fill='%23000080' x='16' y='16' width='160' height='40'/><text x='96' y='48' font-size='24' fill='white' text-anchor='middle' font-weight='bold'>CALC</text><rect fill='%23dfdfdf' x='32' y='72' width='128' height='80'/></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%22},{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23c0c0c0' width='192' height='192'/><rect fill='%23000080' x='16' y='16' width='160' height='40'/><text x='96' y='48' font-size='24' fill='white' text-anchor='middle' font-weight='bold'>CALC</text><rect fill='%23dfdfdf' x='32' y='72' width='128' height='80'/></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22maskable%22}]}" crossorigin="use-credentials">>
+    <link href="https://fonts.googleapis.com/css2?family=Tahoma&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            background: #c0c0c0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .calculator-container {
+            background: linear-gradient(135deg, #dfdfdf 0%, #c0c0c0 50%, #a0a0a0 100%);
+            border: 2px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            border-radius: 3px;
+            box-shadow: 1px 1px 0 rgba(255,255,255,0.5) inset, -1px -1px 0 rgba(0,0,0,0.3) inset;
+            padding: 4px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        .title-bar {
+            background: linear-gradient(90deg, #000080 0%, #1084d7 100%);
+            color: white;
+            padding: 2px 2px 2px 4px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: -4px -4px 2px -4px;
+            border: 1px solid;
+            border-color: #ffffff #000080 #000080 #ffffff;
+        }
+
+        .title-bar span {
+            flex: 1;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .window-btn {
+            width: 16px;
+            height: 14px;
+            background: linear-gradient(135deg, #dfdfdf 0%, #c0c0c0 100%);
+            border: 1px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: black;
+        }
+
+        .window-btn:active {
+            border-color: #000000 #ffffff #ffffff #000000;
+        }
+
+        .menu-bar {
+            background: #c0c0c0;
+            border-bottom: 1px solid #dfdfdf;
+            padding: 2px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .menu-item {
+            padding: 2px 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(135deg, #dfdfdf 0%, #c0c0c0 100%);
+            border: 1px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            padding: 1px 3px;
+        }
+
+        .mode-toggle {
+            display: flex;
+            padding: 4px;
+            gap: 4px;
+            border-bottom: 1px solid #dfdfdf;
+        }
+
+        .mode-btn {
+            padding: 2px 8px;
+            background: linear-gradient(135deg, #dfdfdf 0%, #c0c0c0 100%);
+            border: 1px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .mode-btn.active {
+            border-color: #000000 #ffffff #ffffff #000000;
+            background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+        }
+
+        .mode-btn:hover:not(.active) {
+            background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+        }
+
+        .display-area {
+            background: #c0c0c0;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+
+        .display {
+            background: #f5f5f5;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            border-radius: 2px;
+            padding: 4px 6px;
+            text-align: right;
+            font-size: 32px;
+            font-weight: bold;
+            color: #000;
+            word-wrap: break-word;
+            word-break: break-all;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            max-height: 60px;
+        }
+
+        .controls {
+            padding: 4px;
+            display: flex;
+            gap: 2px;
+            margin-bottom: 4px;
+            flex-shrink: 0;
+        }
+
+        .copy-paste-btn {
+            flex: 1;
+            padding: 4px;
+            background: linear-gradient(135deg, #dfdfdf 0%, #c0c0c0 100%);
+            border: 1px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+            min-height: 22px;
+        }
+
+        .copy-paste-btn:hover {
+            background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+        }
+
+        .copy-paste-btn:active {
+            border-color: #000000 #ffffff #ffffff #000000;
+        }
+
+        .buttons-area {
+            padding: 4px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .button-grid {
+            display: grid;
+            gap: 2px;
+            margin-bottom: 4px;
+            flex: 1;
+        }
+
+        .button-grid.standard {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .button-grid.programmer {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .btn {
+            padding: 6px;
+            background: linear-gradient(135deg, #dfdfdf 0%, #c0c0c0 100%);
+            border: 1px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            color: #000;
+            min-height: 28px;
+            transition: all 0.05s;
+            font-family: Tahoma, Arial, sans-serif;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+        }
+
+        .btn:active {
+            border-color: #000000 #ffffff #ffffff #000000;
+            background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+        }
+
+        .btn.operator {
+            background: linear-gradient(135deg, #dfdfdf 0%, #c0c0c0 100%);
+        }
+
+        .btn.equals {
+            background: linear-gradient(135deg, #c8d4c8 0%, #a9bda9 100%);
+        }
+
+        .btn.equals:active {
+            background: linear-gradient(135deg, #a9bda9 0%, #8ba08b 100%);
+        }
+
+        .btn.clear {
+            background: linear-gradient(135deg, #ffd4d4 0%, #f0b0b0 100%);
+        }
+
+        .btn.clear:active {
+            background: linear-gradient(135deg, #f0b0b0 0%, #d08080 100%);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .info-bar {
+            background: #c0c0c0;
+            border-top: 1px solid #dfdfdf;
+            padding: 2px 4px;
+            font-size: 11px;
+            color: #666;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .programmer-controls {
+            display: none;
+            padding: 4px;
+            border-bottom: 1px solid #dfdfdf;
+            gap: 4px;
+        }
+
+        .programmer-controls.visible {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .hex-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .hex-label {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .hex-display {
+            background: #f5f5f5;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            border-radius: 2px;
+            padding: 4px 6px;
+            text-align: right;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            color: #000;
+            word-break: break-all;
+            min-height: 22px;
+        }
+
+        .base-toggle {
+            display: flex;
+            gap: 2px;
+            flex-wrap: wrap;
+        }
+
+        .base-btn {
+            padding: 4px 8px;
+            background: linear-gradient(135deg, #dfdfdf 0%, #c0c0c0 100%);
+            border: 1px solid;
+            border-color: #ffffff #000000 #000000 #ffffff;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .base-btn.active {
+            border-color: #000000 #ffffff #ffffff #000000;
+            background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+        }
+
+        .base-btn:hover:not(.active) {
+            background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <span>Calculator</span>
+            <div class="window-controls">
+                <div class="window-btn">_</div>
+                <div class="window-btn">□</div>
+                <div class="window-btn">✕</div>
+            </div>
+        </div>
+
+        <!-- Menu Bar -->
+        <div class="menu-bar">
+            <div class="menu-item">View</div>
+            <div class="menu-item">Edit</div>
+            <div class="menu-item">Help</div>
+        </div>
+
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+            <button class="mode-btn active" data-mode="standard">Standard</button>
+            <button class="mode-btn" data-mode="programmer">Programmer</button>
+        </div>
+
+        <!-- Programmer Controls -->
+        <div class="programmer-controls" id="programmerControls">
+            <div class="base-toggle">
+                <button class="base-btn active" data-base="dec">DEC</button>
+                <button class="base-btn" data-base="hex">HEX</button>
+                <button class="base-btn" data-base="oct">OCT</button>
+                <button class="base-btn" data-base="bin">BIN</button>
+            </div>
+        </div>
+
+        <!-- Display Area -->
+        <div class="display-area">
+            <div class="display" id="display">0</div>
+        </div>
+
+        <!-- Copy/Paste Controls -->
+        <div class="controls">
+            <button class="copy-paste-btn" id="copyBtn">Copy</button>
+            <button class="copy-paste-btn" id="pasteBtn">Paste</button>
+        </div>
+
+        <!-- Buttons Area -->
+        <div class="buttons-area">
+            <!-- Standard Mode Grid -->
+            <div class="button-grid standard" id="standardGrid">
+                <button class="btn clear" data-action="clear">C</button>
+                <button class="btn clear" data-action="clearentry">CE</button>
+                <button class="btn clear" data-action="backspace">Backspace</button>
+                <button class="btn operator" data-operator="/">÷</button>
+
+                <button class="btn" data-number="7">7</button>
+                <button class="btn" data-number="8">8</button>
+                <button class="btn" data-number="9">9</button>
+                <button class="btn operator" data-operator="*">×</button>
+
+                <button class="btn" data-number="4">4</button>
+                <button class="btn" data-number="5">5</button>
+                <button class="btn" data-number="6">6</button>
+                <button class="btn operator" data-operator="-">−</button>
+
+                <button class="btn" data-number="1">1</button>
+                <button class="btn" data-number="2">2</button>
+                <button class="btn" data-number="3">3</button>
+                <button class="btn operator" data-operator="+">+</button>
+
+                <button class="btn" data-number="0" style="grid-column: span 2;">0</button>
+                <button class="btn" data-action="decimal">.</button>
+                <button class="btn equals" data-action="equals">=</button>
+            </div>
+
+            <!-- Programmer Mode Grid -->
+            <div class="button-grid programmer hidden" id="programmerGrid">
+                <button class="btn" data-number="A">A</button>
+                <button class="btn" data-number="B">B</button>
+                <button class="btn" data-number="C">C</button>
+                <button class="btn" data-number="D">D</button>
+                <button class="btn" data-number="E">E</button>
+                <button class="btn" data-number="F">F</button>
+
+                <button class="btn" data-number="7">7</button>
+                <button class="btn" data-number="8">8</button>
+                <button class="btn" data-number="9">9</button>
+                <button class="btn operator" data-operator="/">÷</button>
+                <button class="btn clear" data-action="backspace">←</button>
+                <button class="btn operator" data-operator="%">Mod</button>
+
+                <button class="btn" data-number="4">4</button>
+                <button class="btn" data-number="5">5</button>
+                <button class="btn" data-number="6">6</button>
+                <button class="btn operator" data-operator="*">×</button>
+                <button class="btn operator" data-operator="&" style="background: linear-gradient(135deg, #e0d4d4 0%, #d0c0c0 100%);">AND</button>
+                <button class="btn operator" data-operator="|" style="background: linear-gradient(135deg, #e0d4d4 0%, #d0c0c0 100%);">OR</button>
+
+                <button class="btn" data-number="1">1</button>
+                <button class="btn" data-number="2">2</button>
+                <button class="btn" data-number="3">3</button>
+                <button class="btn operator" data-operator="-">−</button>
+                <button class="btn operator" data-operator="^" style="background: linear-gradient(135deg, #e0d4d4 0%, #d0c0c0 100%);">XOR</button>
+                <button class="btn operator" data-operator="~" style="background: linear-gradient(135deg, #e0d4d4 0%, #d0c0c0 100%);">NOT</button>
+
+                <button class="btn" data-number="0">0</button>
+                <button class="btn" data-action="decimal">.</button>
+                <button class="btn" data-operator="<<" style="background: linear-gradient(135deg, #e0d4d4 0%, #d0c0c0 100%);">Lsh</button>
+                <button class="btn operator" data-operator="+">+</button>
+                <button class="btn" data-operator=">>" style="background: linear-gradient(135deg, #e0d4d4 0%, #d0c0c0 100%);">Rsh</button>
+                <button class="btn equals" data-action="equals">=</button>
+
+                <button class="btn clear" data-action="clear" style="grid-column: span 3;">Clear</button>
+                <button class="btn clear" data-action="clearentry" style="grid-column: span 3;">CE</button>
+            </div>
+        </div>
+
+        <!-- Info Bar -->
+        <div class="info-bar" id="infoBar"></div>
+    </div>
+
+    <script>
+        class Calculator {
+            constructor() {
+                this.display = document.getElementById('display');
+                this.infoBar = document.getElementById('infoBar');
+                this.standardGrid = document.getElementById('standardGrid');
+                this.programmerGrid = document.getElementById('programmerGrid');
+                this.programmerControls = document.getElementById('programmerControls');
+                this.copyBtn = document.getElementById('copyBtn');
+                this.pasteBtn = document.getElementById('pasteBtn');
+                
+                this.currentValue = '0';
+                this.previousValue = '';
+                this.operator = null;
+                this.waitingForNewValue = false;
+                this.currentBase = 'dec';
+                this.mode = 'standard';
+                
+                this.setupEventListeners();
+                this.updateDisplay();
+            }
+
+            setupEventListeners() {
+                // Number buttons
+                document.querySelectorAll('[data-number]').forEach(btn => {
+                    btn.addEventListener('click', (e) => this.inputNumber(e.target.dataset.number));
+                });
+
+                // Operator buttons
+                document.querySelectorAll('[data-operator]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const op = e.target.dataset.operator;
+                        this.inputOperator(op);
+                    });
+                });
+
+                // Action buttons
+                document.querySelectorAll('[data-action]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const action = e.target.dataset.action;
+                        this[action]?.();
+                    });
+                });
+
+                // Mode toggle
+                document.querySelectorAll('[data-mode]').forEach(btn => {
+                    btn.addEventListener('click', (e) => this.switchMode(e.target.dataset.mode));
+                });
+
+                // Base toggle
+                document.querySelectorAll('[data-base]').forEach(btn => {
+                    btn.addEventListener('click', (e) => this.switchBase(e.target.dataset.base));
+                });
+
+                // Copy/Paste
+                this.copyBtn.addEventListener('click', () => this.copy());
+                this.pasteBtn.addEventListener('click', () => this.paste());
+
+                // Keyboard support
+                document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+            }
+
+            handleKeyboard(e) {
+                const key = e.key;
+                
+                if (key >= '0' && key <= '9') {
+                    this.inputNumber(key);
+                } else if (key === '.') {
+                    this.decimal();
+                } else if (key === '+' || key === '-') {
+                    this.inputOperator(key);
+                } else if (key === '*') {
+                    e.preventDefault();
+                    this.inputOperator('*');
+                } else if (key === '/') {
+                    e.preventDefault();
+                    this.inputOperator('/');
+                } else if (key === 'Enter' || key === '=') {
+                    e.preventDefault();
+                    this.equals();
+                } else if (key === 'Backspace') {
+                    e.preventDefault();
+                    this.backspace();
+                } else if (key === 'Delete') {
+                    e.preventDefault();
+                    this.clear();
+                } else if (key === 'Escape') {
+                    this.clear();
+                } else if ((e.ctrlKey || e.metaKey) && key === 'c') {
+                    e.preventDefault();
+                    this.copy();
+                } else if ((e.ctrlKey || e.metaKey) && key === 'v') {
+                    e.preventDefault();
+                    this.paste();
+                }
+                
+                // Programmer mode keys
+                if (this.mode === 'programmer') {
+                    if (key.toUpperCase() >= 'A' && key.toUpperCase() <= 'F' && this.currentBase === 'hex') {
+                        this.inputNumber(key.toUpperCase());
+                    }
+                }
+            }
+
+            inputNumber(num) {
+                // Validate number for current base
+                if (!this.isValidForBase(num)) return;
+
+                if (this.waitingForNewValue) {
+                    this.currentValue = String(num);
+                    this.waitingForNewValue = false;
+                } else {
+                    if (this.currentValue === '0' && num !== '.') {
+                        this.currentValue = String(num);
+                    } else {
+                        this.currentValue += String(num);
+                    }
+                }
+                
+                this.updateDisplay();
+            }
+
+            isValidForBase(num) {
+                if (this.currentBase === 'dec') return /^[0-9.]$/.test(num);
+                if (this.currentBase === 'hex') return /^[0-9A-Fa-f]$/.test(num);
+                if (this.currentBase === 'oct') return /^[0-7]$/.test(num);
+                if (this.currentBase === 'bin') return /^[0-1]$/.test(num);
+                return true;
+            }
+
+            inputOperator(op) {
+                if (this.operator !== null && !this.waitingForNewValue) {
+                    this.equals();
+                }
+                
+                this.previousValue = this.currentValue;
+                this.operator = op;
+                this.waitingForNewValue = true;
+            }
+
+            equals() {
+                if (this.operator === null || this.waitingForNewValue) return;
+
+                const prev = this.parseNumber(this.previousValue);
+                const curr = this.parseNumber(this.currentValue);
+                let result;
+
+                try {
+                    switch (this.operator) {
+                        case '+': result = prev + curr; break;
+                        case '-': result = prev - curr; break;
+                        case '*': result = prev * curr; break;
+                        case '/': 
+                            if (curr === 0) {
+                                this.infoBar.textContent = 'Cannot divide by zero';
+                                return;
+                            }
+                            result = prev / curr; 
+                            break;
+                        case '%': result = prev % curr; break;
+                        case '&': result = Math.floor(prev) & Math.floor(curr); break;
+                        case '|': result = Math.floor(prev) | Math.floor(curr); break;
+                        case '^': result = Math.floor(prev) ^ Math.floor(curr); break;
+                        case '<<': result = Math.floor(prev) << Math.floor(curr); break;
+                        case '>>': result = Math.floor(prev) >> Math.floor(curr); break;
+                        default: return;
+                    }
+                    
+                    this.currentValue = this.formatNumber(result);
+                    this.operator = null;
+                    this.waitingForNewValue = true;
+                    this.infoBar.textContent = '';
+                } catch (e) {
+                    this.infoBar.textContent = 'Error';
+                }
+
+                this.updateDisplay();
+            }
+
+            parseNumber(str) {
+                if (this.currentBase === 'hex') return parseInt(str, 16) || 0;
+                if (this.currentBase === 'oct') return parseInt(str, 8) || 0;
+                if (this.currentBase === 'bin') return parseInt(str, 2) || 0;
+                return parseFloat(str) || 0;
+            }
+
+            formatNumber(num) {
+                if (this.currentBase === 'hex') return Math.floor(num).toString(16).toUpperCase();
+                if (this.currentBase === 'oct') return Math.floor(num).toString(8);
+                if (this.currentBase === 'bin') return Math.floor(num).toString(2);
+                return num.toString();
+            }
+
+            decimal() {
+                if (this.waitingForNewValue) {
+                    this.currentValue = '0.';
+                    this.waitingForNewValue = false;
+                } else if (!this.currentValue.includes('.')) {
+                    this.currentValue += '.';
+                }
+                this.updateDisplay();
+            }
+
+            backspace() {
+                if (!this.waitingForNewValue && this.currentValue.length > 1) {
+                    this.currentValue = this.currentValue.slice(0, -1);
+                } else if (this.currentValue.length === 1) {
+                    this.currentValue = '0';
+                }
+                this.updateDisplay();
+            }
+
+            clearentry() {
+                this.currentValue = '0';
+                this.updateDisplay();
+            }
+
+            clear() {
+                this.currentValue = '0';
+                this.previousValue = '';
+                this.operator = null;
+                this.waitingForNewValue = false;
+                this.infoBar.textContent = '';
+                this.updateDisplay();
+            }
+
+            switchMode(mode) {
+                this.mode = mode;
+                document.querySelectorAll('[data-mode]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.mode === mode);
+                });
+
+                if (mode === 'programmer') {
+                    this.standardGrid.classList.add('hidden');
+                    this.programmerGrid.classList.remove('hidden');
+                    this.programmerControls.classList.add('visible');
+                    // Reset to decimal when entering programmer mode
+                    this.currentBase = 'dec';
+                    this.updateBaseButtonStates('dec');
+                    this.clear();
+                } else {
+                    this.standardGrid.classList.remove('hidden');
+                    this.programmerGrid.classList.add('hidden');
+                    this.programmerControls.classList.remove('visible');
+                    // Reset to decimal when switching to standard mode
+                    this.currentBase = 'dec';
+                    // Re-enable all buttons when switching to standard mode
+                    document.querySelectorAll('.btn').forEach(btn => {
+                        btn.disabled = false;
+                    });
+                    this.clear();
+                }
+            }
+
+            switchBase(base) {
+                if (this.currentBase === base) return;
+
+                // Convert current value to decimal if not already
+                const decimalValue = this.parseNumber(this.currentValue);
+                
+                this.currentBase = base;
+                
+                // Update button states
+                this.updateBaseButtonStates(base);
+
+                // Disable/enable number buttons based on base
+                this.updateProgrammerButtonState();
+
+                // Convert to new base
+                this.currentValue = this.formatNumber(decimalValue);
+                this.updateDisplay();
+            }
+
+            updateBaseButtonStates(base) {
+                document.querySelectorAll('[data-base]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.base === base);
+                });
+            }
+
+            updateProgrammerButtonState() {
+                const hexButtons = document.querySelectorAll('[data-number="A"], [data-number="B"], [data-number="C"], [data-number="D"], [data-number="E"], [data-number="F"]');
+                const octButtons = document.querySelectorAll('[data-number="8"], [data-number="9"]');
+                const binButtons = document.querySelectorAll('[data-number="2"], [data-number="3"], [data-number="4"], [data-number="5"], [data-number="6"], [data-number="7"], [data-number="8"], [data-number="9"]');
+
+                hexButtons.forEach(btn => btn.disabled = this.currentBase !== 'hex');
+                octButtons.forEach(btn => btn.disabled = this.currentBase === 'bin');
+                binButtons.forEach(btn => btn.disabled = this.currentBase === 'bin');
+            }
+
+            updateDisplay() {
+                this.display.textContent = this.currentValue;
+            }
+
+            copy() {
+                navigator.clipboard.writeText(this.currentValue).then(() => {
+                    this.infoBar.textContent = 'Copied!';
+                    setTimeout(() => { this.infoBar.textContent = ''; }, 1500);
+                }).catch(() => {
+                    this.infoBar.textContent = 'Copy failed';
+                });
+            }
+
+            paste() {
+                navigator.clipboard.readText().then(text => {
+                    // Clean and validate the pasted text
+                    const cleaned = text.trim();
+                    if (this.isValidPaste(cleaned)) {
+                        this.currentValue = cleaned;
+                        this.waitingForNewValue = false;
+                        this.updateDisplay();
+                        this.infoBar.textContent = 'Pasted!';
+                        setTimeout(() => { this.infoBar.textContent = ''; }, 1500);
+                    } else {
+                        this.infoBar.textContent = 'Invalid paste value';
+                        setTimeout(() => { this.infoBar.textContent = ''; }, 1500);
+                    }
+                }).catch(() => {
+                    this.infoBar.textContent = 'Paste failed';
+                });
+            }
+
+            isValidPaste(str) {
+                if (this.currentBase === 'dec') return /^-?\d+\.?\d*$/.test(str);
+                if (this.currentBase === 'hex') return /^[0-9A-Fa-f]+$/.test(str);
+                if (this.currentBase === 'oct') return /^[0-7]+$/.test(str);
+                if (this.currentBase === 'bin') return /^[0-1]+$/.test(str);
+                return false;
+            }
+        }
+
+        // Initialize calculator when page loads
+        window.addEventListener('load', () => {
+            new Calculator();
+            
+            // Register service worker for PWA functionality
+            if ('serviceWorker' in navigator) {
+                const swCode = `
+const CACHE_NAME = 'calculator-v1';
+const URLS_TO_CACHE = ['./'];
+
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(URLS_TO_CACHE).catch(() => {
+                console.log('Cache addAll failed, continuing with runtime caching');
+            });
+        })
+    );
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+    self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+    if (event.request.method !== 'GET') return;
+    
+    event.respondWith(
+        caches.match(event.request).then((response) => {
+            if (response) {
+                return response;
+            }
+            return fetch(event.request).then((response) => {
+                if (!response || response.status !== 200 || response.type !== 'basic') {
+                    return response;
+                }
+                const responseToCache = response.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(event.request, responseToCache);
+                });
+                return response;
+            }).catch(() => {
+                return caches.match('./');
+            });
+        })
+    );
+});
+`;
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                navigator.serviceWorker.register(swUrl).catch(() => {
+                    console.log('Service Worker registration failed');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
