@@ -555,6 +555,15 @@
                     this.clear();
                 } else if (key === 'Escape') {
                     this.clear();
+                } else if (key.toLowerCase() === 's') {
+                    e.preventDefault();
+                    this.switchMode('standard');
+                } else if (key.toLowerCase() === 'p') {
+                    e.preventDefault();
+                    this.switchMode('programmer');
+                } else if (key.toLowerCase() === 'c' && !e.ctrlKey && !e.metaKey) {
+                    e.preventDefault();
+                    this.clearentry();
                 } else if ((e.ctrlKey || e.metaKey) && key === 'c') {
                     e.preventDefault();
                     this.copy();
@@ -563,9 +572,21 @@
                     this.paste();
                 }
                 
-                // Programmer mode keys
+                // Programmer mode keys for base switching
                 if (this.mode === 'programmer') {
-                    if (key.toUpperCase() >= 'A' && key.toUpperCase() <= 'F' && this.currentBase === 'hex') {
+                    if ((e.ctrlKey || e.metaKey) && key.toLowerCase() === 'd') {
+                        e.preventDefault();
+                        this.switchBase('dec');
+                    } else if ((e.ctrlKey || e.metaKey) && key.toLowerCase() === 'h') {
+                        e.preventDefault();
+                        this.switchBase('hex');
+                    } else if ((e.ctrlKey || e.metaKey) && key.toLowerCase() === 'o') {
+                        e.preventDefault();
+                        this.switchBase('oct');
+                    } else if ((e.ctrlKey || e.metaKey) && key.toLowerCase() === 'b') {
+                        e.preventDefault();
+                        this.switchBase('bin');
+                    } else if (key.toUpperCase() >= 'A' && key.toUpperCase() <= 'F' && this.currentBase === 'hex') {
                         this.inputNumber(key.toUpperCase());
                     }
                 }
